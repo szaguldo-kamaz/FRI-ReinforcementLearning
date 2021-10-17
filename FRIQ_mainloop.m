@@ -48,6 +48,7 @@ function FRIQ_mainloop()
 
     %% Init
     global U VE R stopappnow numofrules reduction_state
+    stopappnow = 0;
     reduction_state = 0;
 
     global numofstates numofactions Usize
