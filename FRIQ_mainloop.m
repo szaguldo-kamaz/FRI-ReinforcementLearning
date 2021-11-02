@@ -99,11 +99,17 @@ function FRIQ_mainloop()
     timetemp=clock;
     filetimestamp=[num2str(timetemp(1)) '.' num2str(timetemp(2),'%0.2d') '.' num2str(timetemp(3),'%0.2d') '__' num2str(timetemp(4),'%0.2d') '_' num2str(timetemp(5),'%0.2d') '_' num2str(floor(timetemp(6)),'%0.2d')];
 
+    % check logs dir
+    if ~isfolder('logs')
+        mkdir('logs');
+    end
+
     % open logfile
-    logfile = fopen(['FRIQ_' FRIQ_param_appname '_eplog__' filetimestamp '.txt'], 'w');
+    global logfile
+    logfile = fopen(['logs/FRIQ_' FRIQ_param_appname '_eplog__' filetimestamp '.txt'], 'w');
 
     if logfile == -1
-        disp(['ERROR: Cannot open FRIQ_' FRIQ_param_appname '_eplog__' filetimestamp '.txt !']);
+        disp(['ERROR: Cannot open logs/FRIQ_' FRIQ_param_appname '_eplog__' filetimestamp '.txt !']);
         ERROR
     end
 
