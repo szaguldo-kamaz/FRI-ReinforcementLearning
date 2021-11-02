@@ -19,7 +19,7 @@ function [reward, isfinalstate] = FRIQ_example_cartpole_getreward(state)
     twelve_degrees     = deg2rad(12); % 12
     fourtyfive_degrees = deg2rad(45); % 45
     %if (x < -4.0 | x > 4.0  | theta < -twelve_degrees | theta > twelve_degrees)
-    if (x <- 4.0 | x > 4.0 | theta <- fourtyfive_degrees | theta > fourtyfive_degrees)
+    if (x < -4.0 || x > 4.0 || theta < -fourtyfive_degrees || theta > fourtyfive_degrees)
         %    r = -5000 - 50*abs(x) - 100*abs(theta);
         reward = -10000 - 50 * abs(x) - 100 * abs(theta); % max: -10000 -500 -20.9440 = -10521
         %    r = -2000 - 25*abs(x) - 50*abs(theta); % max -2260.5

@@ -23,7 +23,7 @@ function [possiblestate, newrule] = FRIQ_check_possible_states(obs, possiblestat
 
     possiblestate_no = possiblestate_no - 1;
     % hit before first rule ?
-    if ~tmpover & (obs < possiblestate(1))
+    if (~tmpover) && (obs < possiblestate(1))
         newrule = possiblestate(1);
         return
     end
