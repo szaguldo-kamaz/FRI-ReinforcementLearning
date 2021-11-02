@@ -47,6 +47,10 @@ function FRIQ_mainloop()
     global FRIQ_const_reduction_strategy__names
 
     %% Init
+
+    FIVEpath=strcat(pwd,'/FIVE');
+    addpath(FIVEpath);
+
     global U VE R stopappnow numofrules reduction_state
     stopappnow = 0;
     reduction_state = 0;
@@ -1373,4 +1377,5 @@ function FRIQ_mainloop()
 
     %% DeInit
 
+    rmpath(FIVEpath);
     fclose(logfile);
