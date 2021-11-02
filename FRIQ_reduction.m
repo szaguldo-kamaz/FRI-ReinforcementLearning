@@ -60,21 +60,21 @@ function FRIQ_reduction()
 
     global R_tocalc R_tmp R_tocalc_prev
 
-        reduction_strategy_rb_filename = [ 'FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
+        reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
 
         % initialization for HALF_GROUP_REMOVAL
         div_limitq = 2;
         really_eliminate_rules = 0;
 
         % load the previously incrementally constructed rule-base
-        if ~exist(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt'], 'file') || ...
-           ~exist(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
+        if ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt'], 'file') || ...
+           ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
 
             disp('Incrementally constructed rule-base files not found, please run the construction process first (set FRIQ_param_construct_rb = 1).');
             return;
         end
-        R = dlmread(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
-        steps_friq_incremental = dlmread(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
+        R = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
+        steps_friq_incremental = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
         numofrules = size(R, 1);
 
         %% 7. two-step reduction strategies switch - maxq
@@ -1240,14 +1240,14 @@ function FRIQ_reduction()
     %% remove membership functions where every rules' antecedent is nan (whole column)
     if FRIQ_param_remove_unnecessary_membership_functions == 1
 
-        if ~exist(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt'], 'file') || ...
-           ~exist(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
+        if ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt'], 'file') || ...
+           ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
        
             disp('Incrementally constructed rule-base files not found, please run the construction process first (try FRIQ_param_construct_rb = 1).');
             return;
         end
 
-        R = dlmread(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
+        R = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
 
         for state = 1:numofstates
 
@@ -1262,9 +1262,9 @@ function FRIQ_reduction()
 
         end
 
-        dlmwrite(['FRIQ_' FRIQ_param_appname '_mf_removed_RB__' filetimestamp '.txt'], R);
-        dlmwrite(['FRIQ_' FRIQ_param_appname '_mf_removed_param_states__' filetimestamp '.txt'], FRIQ_param_states);
-        dlmwrite(['FRIQ_' FRIQ_param_appname '_mf_removed_param_statedivs__' filetimestamp '.txt'], FRIQ_param_statedivs);
-        dlmwrite(['FRIQ_' FRIQ_param_appname '_mf_removed_param_states_steepness__' filetimestamp '.txt'], FRIQ_param_states_steepness);
-        dlmwrite(['FRIQ_' FRIQ_param_appname '_mf_removed_param_states_default__' filetimestamp '.txt'], FRIQ_param_states_default);
+        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_RB__' filetimestamp '.txt'], R);
+        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states__' filetimestamp '.txt'], FRIQ_param_states);
+        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_statedivs__' filetimestamp '.txt'], FRIQ_param_statedivs);
+        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states_steepness__' filetimestamp '.txt'], FRIQ_param_states_steepness);
+        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states_default__' filetimestamp '.txt'], FRIQ_param_states_default);
     end

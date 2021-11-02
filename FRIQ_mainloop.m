@@ -74,9 +74,12 @@ function FRIQ_mainloop()
     timetemp=clock;
     filetimestamp=[num2str(timetemp(1)) '.' num2str(timetemp(2),'%0.2d') '.' num2str(timetemp(3),'%0.2d') '__' num2str(timetemp(4),'%0.2d') '_' num2str(timetemp(5),'%0.2d') '_' num2str(floor(timetemp(6)),'%0.2d')];
 
-    % check logs dir
+    % check logs/rulebases dir
     if ~isfolder('logs')
         mkdir('logs');
+    end
+    if ~isfolder('rulebases')
+        mkdir('rulebases');
     end
 
     % open logfile
@@ -129,8 +132,8 @@ function FRIQ_mainloop()
 
             if prev_numru == num_of_rules && prev_steps == steps_friq && total_reward_friq > FRIQ_param_reward_good_above && prev_reward == total_reward_friq
                 if max(abs(R(:, numofstates + 2) - prevR(:, numofstates + 2))) < FRIQ_param_qdiff_final_tolerance
-                    dlmwrite(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB__' filetimestamp '.txt'], R);
-                    dlmwrite(['FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps__' filetimestamp '.txt'], steps_friq);
+                    dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB__' filetimestamp '.txt'], R);
+                    dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps__' filetimestamp '.txt'], steps_friq);
                     break
                 end
 
