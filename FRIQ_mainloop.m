@@ -23,6 +23,15 @@ function FRIQ_mainloop()
 
     %% Init
 
+    global FRIQ_octave FRIQ_matlab
+    if exist('OCTAVE_VERSION','builtin') > 0
+        FRIQ_octave=true;
+        FRIQ_matlab=false;
+    else
+        FRIQ_octave=false;
+        FRIQ_matlab=true;
+    end
+
     FIVEpath=strcat(pwd,'/FIVE');
     addpath(FIVEpath);
 
@@ -55,7 +64,9 @@ function FRIQ_mainloop()
     xpoints = [];
     ypoints = [];
 
-    set(gcf, 'BackingStore', 'off');
+    if FRIQ_matlab
+        set(gcf, 'BackingStore', 'off');
+    end
     set(gco, 'Units', 'data');
     set(gcf, 'name', FRIQ_param_apptitle);
     set(gcf, 'Color', 'w');
