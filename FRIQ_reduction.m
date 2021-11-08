@@ -60,7 +60,11 @@ function FRIQ_reduction()
 
     global R_tocalc R_tmp R_tocalc_prev
 
-        reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
+        if isempty(FRIQ_param_reduction_strategy_secondary)
+            reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
+        else
+            reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '_' filetimestamp '.txt' ];
+        end
 
         % initialization for HALF_GROUP_REMOVAL
         div_limitq = 2;
