@@ -1242,33 +1242,7 @@ function FRIQ_reduction()
         end
 
     %% remove membership functions where every rules' antecedent is nan (whole column)
+    
     if FRIQ_param_remove_unnecessary_membership_functions == 1
-
-        if ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt'], 'file') || ...
-           ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
-       
-            disp('Incrementally constructed rule-base files not found, please run the construction process first (try FRIQ_param_construct_rb = 1).');
-            return;
-        end
-
-        R = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
-
-        for state = 1:numofstates
-
-            if isnan(R(:, state))
-                R(:, state) = [];
-                FRIQ_param_states(state) = [];
-                FRIQ_param_statedivs(state) = [];
-                FRIQ_param_states_steepness(state) = [];
-                FRIQ_param_states_default(state) = [];
-                disp(['Membership function (' int2str(state) ') removed.']);
-            end
-
-        end
-
-        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_RB__' filetimestamp '.txt'], R);
-        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states__' filetimestamp '.txt'], FRIQ_param_states);
-        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_statedivs__' filetimestamp '.txt'], FRIQ_param_statedivs);
-        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states_steepness__' filetimestamp '.txt'], FRIQ_param_states_steepness);
-        dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_mf_removed_param_states_default__' filetimestamp '.txt'], FRIQ_param_states_default);
+        FRIQ_reduction_remove_unnecessary_MFs(reduction_strategy_rb_filename);
     end
