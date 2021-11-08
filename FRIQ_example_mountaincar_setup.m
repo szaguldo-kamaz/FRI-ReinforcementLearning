@@ -83,8 +83,8 @@ function FRIQ_example_mountaincar_setup()
     FRIQ_param_remove_unnecessary_membership_functions = 0;
 %    FRIQ_param_drawsim            = false; % indicates whether to display the graphical interface or not
     FRIQ_param_drawsim            = true; % indicates whether to display the graphical interface or not
-%    FRIQ_param_maxsteps           = 1000; % maximum number of steps per episode
-    FRIQ_param_maxsteps           = 500; % maximum number of steps per episode
+    FRIQ_param_maxsteps           = 1000; % maximum number of steps per episode
+%    FRIQ_param_maxsteps           = 500; % maximum number of steps per episode
     FRIQ_param_maxepisodes        = 1000;
 
     FRIQ_param_qdiff_pos_boundary           =    +1.0;
