@@ -76,8 +76,8 @@ function FRIQ_example_mountaincar_setup()
 
     % config
     FRIQ_param_norandom           = 1;
-    FRIQ_param_construct_rb       = 0;
-    FRIQ_param_reduce_rb          = 1;
+    FRIQ_param_construct_rb       = 1;
+    FRIQ_param_reduce_rb          = 0;
     FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY;
     FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
     FRIQ_param_remove_unnecessary_membership_functions = 0;
