@@ -61,9 +61,11 @@ function FRIQ_reduction()
     global R_tocalc R_tmp R_tocalc_prev
 
         if isempty(FRIQ_param_reduction_strategy_secondary)
-            reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
+            reduction_strategy_rb_filename_timestamp   = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.txt' ];
+            reduction_strategy_rb_filename_notimestamp = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '.txt' ];
         else
-            reduction_strategy_rb_filename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '_' filetimestamp '.txt' ];
+            reduction_strategy_rb_filename_timestamp   = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '_' filetimestamp '.txt' ];
+            reduction_strategy_rb_filename_notimestamp = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '.txt' ];
         end
 
         % initialization for HALF_GROUP_REMOVAL
@@ -1234,7 +1236,8 @@ function FRIQ_reduction()
             
             %% end of loop
             if stopappnow == 1
-                dlmwrite(reduction_strategy_rb_filename, R);
+                dlmwrite(reduction_strategy_rb_filename_timestamp, R);
+                copyfile(reduction_strategy_rb_filename_timestamp,reduction_strategy_rb_filename_notimestamp);
                 stopappnow = 0;
                 break
             end
@@ -1244,5 +1247,5 @@ function FRIQ_reduction()
     %% remove membership functions where every rules' antecedent is nan (whole column)
     
     if FRIQ_param_remove_unnecessary_membership_functions == 1
-        FRIQ_reduction_remove_unnecessary_MFs(reduction_strategy_rb_filename);
+        FRIQ_reduction_remove_unnecessary_MFs(reduction_strategy_rb_filename_timestamp);
     end

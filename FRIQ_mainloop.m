@@ -145,6 +145,8 @@ function FRIQ_mainloop()
                 if max(abs(R(:, numofstates + 2) - prevR(:, numofstates + 2))) < FRIQ_param_qdiff_final_tolerance
                     dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB__' filetimestamp '.txt'], R);
                     dlmwrite(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps__' filetimestamp '.txt'], steps_friq);
+                    copyfile(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB__' filetimestamp '.txt'], ['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
+                    copyfile(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps__' filetimestamp '.txt'], ['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
                     break
                 end
 
