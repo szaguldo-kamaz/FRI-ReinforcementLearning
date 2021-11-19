@@ -83,45 +83,6 @@ function FRIQ_reduction()
         steps_friq_incremental = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
         numofrules = size(R, 1);
 
-        %% 7. two-step reduction strategies switch - maxq
-        if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ
-            % sort by Q value descending
-            [~, idx] = sortrows(abs(R), -(numofstates + 2));
-            R = R(idx, :);
-
-            % switch to ELIMINATE_DUPLICATED (6) as the remaining steps are the same
-            FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
-
-        %% 8. two-step reduction strategies switch - minq
-        elseif FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ
-            % sort by Q value ascending
-            [~, idx] = sortrows(abs(R), (numofstates + 2));
-            R = R(idx, :);
-
-            % switch to ELIMINATE_DUPLICATED (6) as the remaining steps are the same
-            FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
-
-        end
-
-        %% 10. two-step reduction strategies switch - maxq
-        if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ
-            % sort by Q value descending
-            [~, idx] = sortrows(abs(R), -(numofstates + 2));
-            R = R(idx, :);
-
-            % switch to strategy ELIMINATE_SIMILAR__FIRST (5) as the remaining steps are the same
-            FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST;
-
-        %% 11. two-step reduction strategies switch - minq
-        elseif FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ
-            % sort by Q value ascending
-            [~, idx] = sortrows(abs(R), (numofstates + 2));
-            R = R(idx, :);
-
-            % switch to strategy ELIMINATE_SIMILAR__FIRST (5) as the remaining steps are the same
-            FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST;
-        end
-
         R_tmp = R;
         R_tocalc = R;
         R_tocalc_prev = R;
@@ -150,6 +111,50 @@ function FRIQ_reduction()
 
         %% Reduction mainloop
         for epno = 1:iterations
+
+            % Two-step reduction strategies (need to do it here, because of possible fallbacks)
+            if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ || ...
+               FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ || ...
+               FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ || ...
+               FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ
+
+                switch FRIQ_param_reduction_strategy
+                    % Two-step reduction strategies switch - DUPLICATED_MAXQ -> DUPLICATED_FIRST
+                    case FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ
+                        % sort by Q value descending
+                        [~, idx] = sortrows(abs(R), -(numofstates + 2));
+                        R = R(idx, :);
+                        % switch to ELIMINATE_DUPLICATED (6) as the remaining steps are the same
+                        FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
+
+                    % Two-step reduction strategies switch - DUPLICATED_MINQ -> DUPLICATED_FIRST
+                    case FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ
+                        % sort by Q value ascending
+                        [~, idx] = sortrows(abs(R), (numofstates + 2));
+                        R = R(idx, :);
+                        % switch to ELIMINATE_DUPLICATED (6) as the remaining steps are the same
+                        FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
+
+                    % Two-step reduction strategies switch - SIMILAR_MAXQ -> SIMILAR_FIRST
+                    case FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ
+                        % sort by Q value descending
+                        [~, idx] = sortrows(abs(R), -(numofstates + 2));
+                        R = R(idx, :);
+                        % switch to strategy ELIMINATE_SIMILAR__FIRST (5) as the remaining steps are the same
+                        FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST;
+
+                    % Two-step reduction strategies switch - SIMILAR_MINQ -> SIMILAR_FIRST
+                    case FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ
+                        % sort by Q value ascending
+                        [~, idx] = sortrows(abs(R), (numofstates + 2));
+                        R = R(idx, :);
+                        % switch to strategy ELIMINATE_SIMILAR__FIRST (5) as the remaining steps are the same
+                        FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST;
+                end
+                R_tmp = R;
+                R_tocalc = R;
+                R_tocalc_prev = R;
+            end
 
             % empty check necessary because kmeans sometimes creates empty clusters
             if isempty(R)
