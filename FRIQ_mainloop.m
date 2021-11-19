@@ -19,7 +19,7 @@ function FRIQ_mainloop()
     global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary FRIQ_param_qdiff_final_tolerance FRIQ_param_reward_good_above
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon FRIQ_param_maxepisodes
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
-    global FRIQ_param_construct_rb FRIQ_param_reduce_rb
+    global FRIQ_param_construct_rb measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
 
     %% Init
 
@@ -156,7 +156,14 @@ function FRIQ_mainloop()
 
     end
 
-%% Reduction of a previously constructed rule-base
+    %% Measure rule usage of the constructed rule-base
+    if FRIQ_param_measure_constructed_rb_usage == 1
+        disp(['Measuring rule usage with this rule-base: rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB' ]);
+        fprintf(logfile, ['Measuring rule usage with this rule-base: rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB\r\n' ]);
+        FRIQ_measure_rb_usage(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB']);
+    end
+
+    %% Reduction of a previously constructed rule-base
 
     if FRIQ_param_reduce_rb == 1
         FRIQ_reduction();

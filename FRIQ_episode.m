@@ -11,12 +11,22 @@ function [total_reward_friq, steps_friq] = FRIQ_episode(maxsteps, alpha, gamma, 
     global FRIQ_param_drawfunc FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_quantize_observationsfunc
     global FRIQ_param_states FRIQ_param_statedivs FRIQ_param_states_default FRIQ_param_actions
     global FRIQ_param_drawsim
-    global stopappnow stepno reduction_state
+    global stopappnow stepno reduction_state measure_rb_usage_state
     global debug_on
 
     state             = FRIQ_param_states_default; 
     steps_friq        = 0;
     total_reward_friq = 0;
+
+    if measure_rb_usage_state == 1
+       noRBupdate=1;
+    else
+        if reduction_state == 1
+            noRBupdate=1;
+        else
+            noRBupdate=0;
+        end
+    end
 
     % set initial state
     state_quantized = state;
@@ -50,7 +60,7 @@ function [total_reward_friq, steps_friq] = FRIQ_episode(maxsteps, alpha, gamma, 
         action_p_value = FRIQ_param_actions(action_p);
 
         % update the rule-base conclusions (Q vals) (when in incremental construction phase)
-        if reduction_state == 0
+        if noRBupdate == 0
             FRIQ_update_RB(state_quantized, action_value, reward, state_p_quantized, action_p_value, alpha, gamma);
         end
 

@@ -9,6 +9,7 @@ function [ action ] = FRIQ_get_best_action(state, actionset)
 %
 
     global U VE R numofactions
+    global measure_rb_usage_state Rusage
 
     actionconclusions = zeros(1,numofactions);
 
@@ -126,6 +127,12 @@ function [ action ] = FRIQ_get_best_action(state, actionset)
         end
 
         actionconclusions(actno) = FIVEVagConcl_FRIQ_bestact(U, VE, R, RD);
+
+        % measure usage - collect weights/distances - accumulate contribution of each rule
+        if measure_rb_usage_state == 1
+            weights=FIVEVagConclWeight_fixres(U, VE, R, [state, actionset(actno)]);
+            Rusage=Rusage+weights';
+        end
     end
 
     [~, action] = max(actionconclusions);
