@@ -35,7 +35,6 @@ function FRIQ_reduction()
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN
-    global FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_ONE
@@ -44,6 +43,7 @@ function FRIQ_reduction()
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ
+    global FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL
     global FRIQ_const_reduction_strategy__names
 
     %% Init
@@ -82,6 +82,14 @@ function FRIQ_reduction()
         R = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.txt']);
         steps_friq_incremental = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
         numofrules = size(R, 1);
+
+        if isempty(FRIQ_param_reduction_strategy_secondary)
+            disp(['Using reduction strategy: ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ]);
+            fprintf(logfile, ['Using reduction strategy: ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '\r\n' ]);
+        else
+            disp(['Using reduction strategy: ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ' with ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ]);
+            fprintf(logfile, ['Using reduction strategy: ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ' with ' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '\r\n' ]);
+        end
 
         R_tmp = R;
         R_tocalc = R;

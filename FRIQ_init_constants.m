@@ -22,7 +22,6 @@ function FRIQ_init_constants()
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ
     global FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN
-    global FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_ONE
@@ -31,32 +30,44 @@ function FRIQ_init_constants()
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ
+    global FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL
 
     FRIQ_const_reduction_strategy__MIN_Q=1;
     FRIQ_const_reduction_strategy__MAX_Q=2;
     FRIQ_const_reduction_strategy__HALF_GROUP_REMOVAL=3;
-    FRIQ_const_reduction_strategy__BUILD_MINANDMAXQ=15;
+    FRIQ_const_reduction_strategy__BUILD_MINANDMAXQ=4;
 
-    FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY=4;
+    FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY=5;
     FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST=6;
-    FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ=8;
-    FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ=7;
+    FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ=7;
+    FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ=8;
     FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MERGE_MEAN=9;
-
-    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST=5;
+    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST=10;
     FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ=11;
-    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ=10;
-    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN=12;
+    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ=12;
+    FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN=13;
 
-    FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL=100; % Tamas - TODO
-    FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE=13;
-    FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY=14;
+    FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE=14;
+    FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY=15;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_ONE=16;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_MANY=17;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_CENTROID=18;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ=19;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ=20;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ=21;
+
+%    FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL=100; % Tamas - TODO
+
+    global FRIQ_const_reduction_secondary_strategies
+    FRIQ_const_reduction_secondary_strategies=[ ...
+            FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST, ...
+            FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MINQ, ...
+            FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ, ...
+            FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MERGE_MEAN ...
+            FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__FIRST ...
+            FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ ...
+            FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ ...
+            FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN ];
 
     global FRIQ_const_reduction_strategy__names
     FRIQ_const_reduction_strategy__names={};
@@ -73,7 +84,6 @@ function FRIQ_init_constants()
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MINQ}= 'ELIMINATE_SIMILAR__MINQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MAXQ}= 'ELIMINATE_SIMILAR__MAXQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__ELIMINATE_SIMILAR__MERGE_MEAN}='ELIMINATE_SIMILAR__MERGE_MEAN';
-    FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL}='CLUSTER__HIERARCHICAL';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE}= 'CLUSTER__KMEANS_REMOVE_ONE';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY}='CLUSTER__KMEANS_REMOVE_MANY';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_ONE}= 'CLUSTER__KMEANS_REPLACE_ONE';
@@ -82,3 +92,4 @@ function FRIQ_init_constants()
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ}='CLUSTER__KMEANS_BUILD_MINANDMAXQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ}='CLUSTER__KMEANS_BUILD_MAXABSQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ}='CLUSTER__KMEANS_BUILD_MINABSQ';
+%    FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL}='CLUSTER__HIERARCHICAL';
