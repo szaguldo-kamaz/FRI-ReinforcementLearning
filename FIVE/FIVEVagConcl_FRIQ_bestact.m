@@ -53,8 +53,10 @@ function [Y] = FIVEVagConcl_FRIQ_bestact(U, VE, R, rd, P)
     % Go through all rules; R(i,m) is the i. conclusion;
     %    rd(i) is the i. distance of the i. antecedent to the observation
 
+    vrconc = zeros(n,1);
+
     if sum(rd == 0) > 0% at least one rule antecedent had exactly hit
-        vrconc = []; % resetting temp variables
+        vrconc = zeros(n,1); % resetting temp variables
 
         for i = 1:n % for all the rules
 
@@ -62,9 +64,9 @@ function [Y] = FIVEVagConcl_FRIQ_bestact(U, VE, R, rd, P)
 
                 if m == nu % the consequent universe also has a vague environment
                     % vague distance from the first (smallest) element of the conclusion universe
-                    vrconc = [vrconc, FIVEVagDist_fixres(U(m, :), VE(m, :), U(m, 1), R(i, m))];
+                    vrconc(i) = FIVEVagDist_fixres(U(m, :), VE(m, :), U(m, 1), R(i, m));
                 else % the rule consequences are singletons
-                    vrconc = [vrconc, R(i, m)];
+                    vrconc(i) = R(i, m);
                 end
 
             end % if
@@ -89,6 +91,7 @@ function [Y] = FIVEVagConcl_FRIQ_bestact(U, VE, R, rd, P)
             rd(rd < 0) = inf; % rd<0 denotes that rd=inf
         end % if
 
+        wi=zeros(n,1);
         for i = 1:n% for all the rules
             wi(i) = 1 ./ abs(rd(i)).^P;
 

@@ -49,9 +49,10 @@ function [RD] = FIVERuleDist_fixres(U, VE, R, X)
     [nu, mu] = size(tempU);
     %nu = mr - 1; % according to the profiler, the above line is faster...
     RD = zeros(1, nr);
+    Rnoconcl=R(:, 1:mr - 1);
 
     for i = 1:nr % Go through all rules
-        dm = FIVEVagDist_fixres(tempU, nu, mu, tempVE, R(i, 1:mr - 1), X);
+        dm = FIVEVagDist_fixres(tempU, nu, mu, tempVE, Rnoconcl(i, :), X);
 
         if min(dm) < 0 % there are inf elements (denoted by <0 value)
             dm = dm(dm < 0); % vector of elements <0 from dm

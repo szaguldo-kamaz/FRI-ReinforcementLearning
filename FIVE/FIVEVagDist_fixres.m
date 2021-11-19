@@ -23,8 +23,8 @@ function [D] = FIVEVagDist_fixres(U, nu, mu, VE, P1, P2)
     % e-mail: szkovacs@iit.uni-miskolc.hu
     %   Copyright (c) 2008 by Szilveszter Kovacs
     % "Fixed resolution" optimization (C) David Vincze
-    % vincze.david@iit.uni-miskolc.hu
-    %   Last modified: 12.08.10
+    % vincze.david@uni-miskolc.hu
+    %   Last modified: 19.11.21
 
     % global FIVEdebug
     %
@@ -36,6 +36,8 @@ function [D] = FIVEVagDist_fixres(U, nu, mu, VE, P1, P2)
     % all the "U"s should be the same length, so
     %uksize=(size(U(k,:),2)-1); --> mu-1
     uksize = mu - 1;
+
+    D=zeros(nu,1);
 
     for k = 1:nu % the number of the dimension
     % O(m) - m*
