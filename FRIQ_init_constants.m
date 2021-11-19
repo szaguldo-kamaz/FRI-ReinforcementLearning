@@ -31,6 +31,8 @@ function FRIQ_init_constants()
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL
+    % special value to run all the reduction strategies on the same rule-base
+    global FRIQ_const_reduction_strategy__ALL
 
     FRIQ_const_reduction_strategy__MIN_Q=1;
     FRIQ_const_reduction_strategy__MAX_Q=2;
@@ -57,6 +59,8 @@ function FRIQ_init_constants()
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ=21;
 
 %    FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL=100; % Tamas - TODO
+
+    FRIQ_const_reduction_strategy__ALL=1000;
 
     global FRIQ_const_reduction_secondary_strategies
     FRIQ_const_reduction_secondary_strategies=[ ...
