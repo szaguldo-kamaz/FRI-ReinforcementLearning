@@ -194,8 +194,8 @@ function FRIQ_reduction()
                 [mvalue, mindex] = min(abs(R_tmp(:, numofstates + 2)));
 
                 if isnan(mvalue)
-                    disp('Smallest rule-base found. Exiting.');
-                    fprintf(logfile, 'Smallest rule-base found. Exiting.\r\n');
+                    disp('Smallest rule-base found. Stop.');
+                    fprintf(logfile, 'Smallest rule-base found. Stop.\r\n');
                     R = R_tocalc;
                     stopappnow = 1;
                 else
@@ -214,8 +214,8 @@ function FRIQ_reduction()
                 [mvalue, mindex] = max(abs(R_tmp(:, numofstates + 2)));
 
                 if isnan(mvalue)
-                    disp('Smallest rule-base found. Exiting.');
-                    fprintf(logfile, 'Smallest rule-base found. Exiting.\r\n');
+                    disp('Smallest rule-base found. Stop.');
+                    fprintf(logfile, 'Smallest rule-base found. Stop.\r\n');
                     R = R_tocalc;
                     stopappnow = 1;
                 else
@@ -281,8 +281,8 @@ function FRIQ_reduction()
                 % every rule has been checked and marked for permanent?
                 if isnan(mvalue)
                     if (total_reward_friq > FRIQ_param_reward_good_above) && (steps_friq <= steps_friq_incremental) && (abs(diff_rewardf) <= FRIQ_param_reduction_reward_tolerance)
-                        disp('Smallest rule-base found. Exiting.');
-                        fprintf(logfile, 'Smallest rule-base found. Exiting.\r\n');
+                        disp('Smallest rule-base found. Stop.');
+                        fprintf(logfile, 'Smallest rule-base found. Stop.\r\n');
                         R = R_tocalc;
                         stopappnow = 1;
                     else
@@ -384,8 +384,8 @@ function FRIQ_reduction()
 
                 if found_smallest_rb == 1 || isnan(maxvalue) || isnan(minvalue) || maxvalue == minvalue
                     % every rule has been tested
-                    disp('Found smallest rule-base. Exiting.');
-                    fprintf(logfile, 'Found smallest rule-base. Exiting.\r\n');
+                    disp('Found smallest rule-base. Stop.');
+                    fprintf(logfile, 'Found smallest rule-base. Stop.\r\n');
                     stopappnow = 1;
                 else
                     R = [R; R_tmp(maxindex, :)]; %#ok<AGROW>
@@ -518,8 +518,8 @@ function FRIQ_reduction()
 
                 if tested_rule > size(R_tmp, 1)
                     % every rule have been tested
-                    disp('Every rule have been tested. Exiting.');
-                    fprintf(logfile, 'Every rule have been tested. Exiting.\r\n');
+                    disp('Every rule have been tested. Stop.');
+                    fprintf(logfile, 'Every rule have been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -595,8 +595,8 @@ function FRIQ_reduction()
 
                 if tested_rule > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -657,8 +657,8 @@ function FRIQ_reduction()
 
                 if tested_rule > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -720,8 +720,8 @@ function FRIQ_reduction()
 
                 if tested_rule > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -803,8 +803,8 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -868,8 +868,8 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -928,8 +928,8 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -998,8 +998,8 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Every rule has been tested. Exiting.\r\n');
+                    disp('Every rule has been tested. Stop.');
+                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
@@ -1054,8 +1054,8 @@ function FRIQ_reduction()
 
                 if found_smallest_rb == 1 || k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Solution found, or every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Solution found, or every rule has been tested. Exiting.\r\n');
+                    disp('Solution found, or every rule has been tested. Stop.');
+                    fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
                     R = [];
@@ -1100,8 +1100,8 @@ function FRIQ_reduction()
 
                 if found_smallest_rb == 1 || k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Solution found, or every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Solution found, or every rule has been tested. Exiting.\r\n');
+                    disp('Solution found, or every rule has been tested. Stop.');
+                    fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
                     R = [];
@@ -1156,8 +1156,8 @@ function FRIQ_reduction()
 
                 if found_smallest_rb == 1 || k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Solution found, or every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Solution found, or every rule has been tested. Exiting.\r\n');
+                    disp('Solution found, or every rule has been tested. Stop.');
+                    fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
                     R = [];
@@ -1210,8 +1210,8 @@ function FRIQ_reduction()
 
                 if found_smallest_rb == 1 || k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Solution found, or every rule has been tested. Exiting.');
-                    fprintf(logfile, 'Solution found, or every rule has been tested. Exiting.\r\n');
+                    disp('Solution found, or every rule has been tested. Stop.');
+                    fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
                     R = [];
