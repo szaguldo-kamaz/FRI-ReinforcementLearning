@@ -18,11 +18,14 @@ function [ action ] = FRIQ_get_best_action(state, actionset)
     VEstates = VE(1:rulewidth - 2, :);
     [nU, mU] = size(Ustates);
     vagdist_states = zeros(numofrules, rulewidth - 2);
+    dmlen=rulewidth-1;
+    dm=zeros(1, dmlen);
 
     % This is from FIVERuleDist!
     % current state distance from each rule
+    Ronlystates=R(:, 1:rulewidth - 2);
     for i = 1:numofrules
-        vagdist_states(i, :) = FIVEVagDist_fixres(Ustates, nU, mU, VEstates, R(i, 1:rulewidth - 2), state);
+        vagdist_states(i, :) = FIVEVagDist_fixres(Ustates, nU, mU, VEstates, Ronlystates(i, :), state);
     end
 
     % now calculate distance for possible actions:
@@ -102,17 +105,22 @@ function [ action ] = FRIQ_get_best_action(state, actionset)
                 Da = abs(VEk(j) - VEk(i)); % the scaled distance of P1 and P2 (P2>P1)
             end
 
-            dm = [vagdist_states(curruleno, :) Da];
+%            dm = [vagdist_states(curruleno, :) Da];
+% This is much faster:
+            for dmindex = 1:rulewidth-2
+                dm(dmindex)=vagdist_states(curruleno,dmindex);
+            end
+            dm(dmlen)=Da;
 
             %- This is from FIVERuleDist!
             if min(dm) < 0 % there are inf elements (denoted by <0 value)
                 dm = dm(dm < 0); % vector of elements <0 from dm
-%                 RD(curruleno)=-sqrt(sum(dm.^2));    % RD<0 denotes that RD=inf
-                RD(curruleno) = -norm(dm, 2);
+%                 RD(curruleno)=-sqrt(sum(dm.^2));    % RD<0 denotes that RD=inf, norm is faster
+                RD(curruleno) = -norm(dm, 2);    % RD<0 denotes that RD=inf
             else % there are no inf elements
                 % Euclidean distance of the observation from the rule antecedents
                 RD(curruleno) = norm(dm, 2);
-%                 RD(curruleno)=sqrt(sum(dm.^2));
+%                 RD(curruleno)=sqrt(sum(dm.^2));  % norm is faster
             end
 
         end
