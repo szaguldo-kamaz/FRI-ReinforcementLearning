@@ -45,7 +45,7 @@ function FRIQ_reduction_remove_unnecessary_MFs(rulebasefilename)
         end
 
         rulebasefilename_base=rulebasefilename(1:length(rulebasefilename)-4);
-        dlmwrite([rulebasefilename_base '_mf_removed_RB.txt'], Rumf);
+        dlmwrite([rulebasefilename_base '_mf_removed_RB.csv'], Rumf);
         dlmwrite([rulebasefilename_base '_mf_removed_param_states.txt'], FRIQ_param_states);
         dlmwrite([rulebasefilename_base '_mf_removed_param_statedivs.txt'], FRIQ_param_statedivs);
         dlmwrite([rulebasefilename_base '_mf_removed_param_states_steepness.txt'], FRIQ_param_states_steepness);
