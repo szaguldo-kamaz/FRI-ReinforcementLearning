@@ -46,7 +46,7 @@ function FRIQ_example_mountaincar_setup()
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ
-    global FRIQ_const_reduction_strategy__CLUSTER__ALL
+    global FRIQ_const_reduction_strategy__ALL
 
     FRIQ_param_appname = 'example_mountaincar';
     FRIQ_param_apptitle = 'FRIQ-learning example: MountainCar';
