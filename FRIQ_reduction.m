@@ -60,27 +60,28 @@ function FRIQ_reduction()
 
     global R_tocalc R_tmp R_tocalc_prev
 
+        toreduceRB_filename=['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.csv'];
+        toreduceRB_steps_filename=['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'];
+%         toreduceRB_filename=['rulebases/FRIQ_example_cartpole_reduced_RB_with_ANTECEDENT_REDUNDANCY_and_ELIMINATE_DUPLICATED__MERGE_MEAN.csv'];
+%         toreduceRB_steps_filename=['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'];
+
         if isempty(FRIQ_param_reduction_strategy_secondary)
-            reduction_strategy_rb_filename_timestamp   = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_' filetimestamp '.csv' ];
-            reduction_strategy_rb_filename_notimestamp = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '.csv' ];
+            reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
         else
-            reduction_strategy_rb_filename_timestamp   = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '_' filetimestamp '.csv' ];
-            reduction_strategy_rb_filename_notimestamp = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} '.csv' ];
+            reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
         end
 
         % initialization for HALF_GROUP_REMOVAL
         div_limitq = 2;
         really_eliminate_rules = 0;
 
-        % load the previously incrementally constructed rule-base
-        if ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.csv'], 'file') || ...
-           ~exist(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'], 'file')
-
-            disp('Incrementally constructed rule-base files not found, please run the construction process first (set FRIQ_param_construct_rb = 1).');
+        % load the rule-base + steps
+        if ~exist(toreduceRB_filename, 'file') || ~exist(toreduceRB_steps_filename, 'file')
+            disp('The supplied rule-base files were not found, please run the construction process first (set FRIQ_param_construct_rb = 1).');
             return;
         end
-        R = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB.csv']);
-        steps_friq_incremental = dlmread(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt']);
+        R = dlmread(toreduceRB_filename);
+        steps_friq_incremental = dlmread(toreduceRB_steps_filename);
         numofrules = size(R, 1);
 
         if isempty(FRIQ_param_reduction_strategy_secondary)
@@ -1249,8 +1250,10 @@ function FRIQ_reduction()
             
             %% end of loop
             if stopappnow == 1
-                dlmwrite(reduction_strategy_rb_filename_timestamp, R);
-                copyfile(reduction_strategy_rb_filename_timestamp,reduction_strategy_rb_filename_notimestamp);
+                dlmwrite([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ], R);
+                copyfile([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ],[ reduction_strategy_rb_filename_base '.csv' ]);
+                dlmwrite([ reduction_strategy_rb_filename_base '_steps_' filetimestamp '.txt' ], steps_friq);
+                copyfile([ reduction_strategy_rb_filename_base '_steps_' filetimestamp '.txt' ], [ reduction_strategy_rb_filename_base '_steps.txt' ]);
                 stopappnow = 0;
                 break
             end
@@ -1260,5 +1263,5 @@ function FRIQ_reduction()
     %% remove membership functions where every rules' antecedent is nan (whole column)
     
     if FRIQ_param_remove_unnecessary_membership_functions == 1
-        FRIQ_reduction_remove_unnecessary_MFs(reduction_strategy_rb_filename_timestamp);
+        FRIQ_reduction_remove_unnecessary_MFs([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ]);
     end

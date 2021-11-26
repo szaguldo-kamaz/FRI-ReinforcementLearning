@@ -197,13 +197,13 @@ function FRIQ_mainloop()
                     FRIQ_reduction();
                     % fallbacks can overwrite this in FRIQ_reduction(), so reset it every time before calling FRIQ_reduction()
                     FRIQ_param_reduction_strategy=FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY;
+                    if isempty(FRIQ_param_reduction_strategy_secondary)
+                        reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+                    else
+                        reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
+                    end
                     % Measure rule usage of the reduced rule-base
                     if FRIQ_param_measure_reduced_rb_usage == 1
-                        if isempty(FRIQ_param_reduction_strategy_secondary)
-                            reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
-                        else
-                            reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
-                        end
                         disp(['Measuring rule usage with this rule-base: ' reduced_rb_basefilename ]);
                         fprintf(logfile, ['Measuring rule usage with this rule-base: ' reduced_rb_basefilename '\r\n' ]);
                         FRIQ_measure_RB_usage(reduced_rb_basefilename);
@@ -216,13 +216,13 @@ function FRIQ_mainloop()
                 FRIQ_reduction();
                 % fallbacks can overwrite this in FRIQ_reduction(), so reset it every time before calling FRIQ_reduction()
                 FRIQ_param_reduction_strategy=redstrat;
+                if isempty(FRIQ_param_reduction_strategy_secondary)
+                    reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+                else
+                    reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
+                end
                 % Measure rule usage of the reduced rule-base
                 if FRIQ_param_measure_reduced_rb_usage == 1
-                    if isempty(FRIQ_param_reduction_strategy_secondary)
-                        reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
-                    else
-                        reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
-                    end
                     disp(['Measuring rule usage with this rule-base: ' reduced_rb_basefilename ]);
                     fprintf(logfile, ['Measuring rule usage with this rule-base: ' reduced_rb_basefilename '\r\n' ]);
                     FRIQ_measure_RB_usage(reduced_rb_basefilename);
