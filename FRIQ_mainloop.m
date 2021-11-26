@@ -167,6 +167,10 @@ function FRIQ_mainloop()
         FRIQ_measure_RB_usage(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB']);
     end
 
+    %% Humanize RB (preferrably with "usage")
+
+    FRIQ_humanize_RB(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB']);
+
     %% Reduction of a previously constructed rule-base
 
     if FRIQ_param_reduce_rb == 1
@@ -208,6 +212,7 @@ function FRIQ_mainloop()
                         fprintf(logfile, ['Measuring rule usage with this rule-base: ' reduced_rb_basefilename '\r\n' ]);
                         FRIQ_measure_RB_usage(reduced_rb_basefilename);
                     end
+                    FRIQ_humanize_RB(reduced_rb_basefilename);
                 end
             else
                 FRIQ_param_reduction_strategy_secondary=[];
@@ -227,6 +232,7 @@ function FRIQ_mainloop()
                     fprintf(logfile, ['Measuring rule usage with this rule-base: ' reduced_rb_basefilename '\r\n' ]);
                     FRIQ_measure_RB_usage(reduced_rb_basefilename);
                 end
+                FRIQ_humanize_RB(reduced_rb_basefilename);
             end
         end
     end
