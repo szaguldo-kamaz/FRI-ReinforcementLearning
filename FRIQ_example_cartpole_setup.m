@@ -18,6 +18,7 @@ function FRIQ_example_cartpole_setup()
     global FRIQ_param_construct_rb FRIQ_param_measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc FRIQ_param_quantize_observationsfunc
+    global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
 
     % constants
     global FRIQ_const_reduction_strategy__MIN_Q
@@ -102,6 +103,22 @@ function FRIQ_example_cartpole_setup()
     FRIQ_param_states_steepness = [1, 1, 21.485917317405871, 1];
     FRIQ_param_states_default = [1 0 0 0];
     %FRIQ_param_states_default=[0 0 0 0.01];
+
+    FRIQ_param_antecedent_terms={
+        {'LEFT','RIGHT'}
+        {'LEFT','STOPPED','RIGHT'}
+        {'MAX LEFT','LEFT','LITTLE LEFT','BIT LEFT','STANDING','BIT RIGHT','LITTLE RIGHT','RIGHT','MAX RIGHT'}
+        {'LEFT','RIGHT'}
+        {'LEFT10','LEFT9','LEFT8','LEFT7','LEFT6','LEFT5','LEFT4','LEFT3','LEFT2','LEFT1','STOP','RIGHT1','RIGHT2','RIGHT3','RIGHT4','RIGHT5','RIGHT6','RIGHT7','RIGHT8','RIGHT9','RIGHT10'}
+    };
+
+    FRIQ_param_antecedent_names={
+        'CART POSITION'
+        'CART ACCELERATION'
+        'POLE POSITION'
+        'POLE FALLING'
+        'FORCE TO APPLY'
+    };
 
     % configuration
     FRIQ_param_norandom                     = 1;
