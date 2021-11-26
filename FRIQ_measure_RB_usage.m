@@ -1,4 +1,4 @@
-function FRIQ_measure_rb_usage(RBbasefilename)
+function FRIQ_measure_RB_usage(RBbasefilename)
 %
 % FRIQ-learning framework v0.60
 % https://github.com/szaguldo-kamaz/
