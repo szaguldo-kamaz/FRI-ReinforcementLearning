@@ -1,0 +1,183 @@
+CART POSITION,CART ACCELERATION,POLE POSITION,POLE FALLING,FORCE TO APPLY,Q,Usage/max,Usage/all,Usage/all %
+LEFT,LEFT,MAX LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.063028%
+LEFT,LEFT,MAX LEFT,LEFT,RIGHT10,slightly bad,negligible,negligible,0.033914%
+LEFT,LEFT,MAX LEFT,RIGHT,LEFT10,neutral,very low,very low,0.064748%
+LEFT,LEFT,MAX LEFT,RIGHT,RIGHT10,neutral,negligible,negligible,0.033571%
+LEFT,LEFT,MAX RIGHT,LEFT,LEFT10,neutral,negligible,negligible,0.044354%
+LEFT,LEFT,MAX RIGHT,LEFT,RIGHT10,neutral,zero,zero,0.025306%
+LEFT,LEFT,MAX RIGHT,RIGHT,LEFT10,neutral,negligible,negligible,0.044981%
+LEFT,LEFT,MAX RIGHT,RIGHT,RIGHT10,neutral,zero,zero,0.025081%
+LEFT,RIGHT,MAX LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.063028%
+LEFT,RIGHT,MAX LEFT,LEFT,RIGHT10,bad,negligible,negligible,0.033914%
+LEFT,RIGHT,MAX LEFT,RIGHT,LEFT10,neutral,very low,very low,0.064748%
+LEFT,RIGHT,MAX LEFT,RIGHT,RIGHT10,neutral,negligible,negligible,0.033571%
+LEFT,RIGHT,MAX RIGHT,LEFT,LEFT10,neutral,negligible,negligible,0.044354%
+LEFT,RIGHT,MAX RIGHT,LEFT,RIGHT10,neutral,zero,zero,0.025306%
+LEFT,RIGHT,MAX RIGHT,RIGHT,LEFT10,neutral,negligible,negligible,0.044981%
+LEFT,RIGHT,MAX RIGHT,RIGHT,RIGHT10,neutral,zero,zero,0.025081%
+RIGHT,LEFT,MAX LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.07473%
+RIGHT,LEFT,MAX LEFT,LEFT,RIGHT10,bad,negligible,negligible,0.039669%
+RIGHT,LEFT,MAX LEFT,RIGHT,LEFT10,neutral,very low,very low,0.077255%
+RIGHT,LEFT,MAX LEFT,RIGHT,RIGHT10,neutral,negligible,negligible,0.03914%
+RIGHT,LEFT,MAX RIGHT,LEFT,LEFT10,neutral,negligible,negligible,0.05061%
+RIGHT,LEFT,MAX RIGHT,LEFT,RIGHT10,neutral,zero,zero,0.028255%
+RIGHT,LEFT,MAX RIGHT,RIGHT,LEFT10,very bad,negligible,negligible,0.05144%
+RIGHT,LEFT,MAX RIGHT,RIGHT,RIGHT10,bad,zero,zero,0.027921%
+RIGHT,RIGHT,MAX LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.07473%
+RIGHT,RIGHT,MAX LEFT,LEFT,RIGHT10,bad,negligible,negligible,0.039669%
+RIGHT,RIGHT,MAX LEFT,RIGHT,LEFT10,neutral,very low,very low,0.077255%
+RIGHT,RIGHT,MAX LEFT,RIGHT,RIGHT10,neutral,negligible,negligible,0.03914%
+RIGHT,RIGHT,MAX RIGHT,LEFT,LEFT10,neutral,negligible,negligible,0.05061%
+RIGHT,RIGHT,MAX RIGHT,LEFT,RIGHT10,neutral,zero,zero,0.028255%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,LEFT10,bad,negligible,negligible,0.05144%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,RIGHT10,very bad,zero,zero,0.027921%
+RIGHT,LEFT,MAX RIGHT,RIGHT,STOP,bad,low,low,0.82842%
+RIGHT,STOPPED,STANDING,RIGHT,RIGHT10,slightly good,low,low,2.0351%
+RIGHT,STOPPED,STANDING,LEFT,RIGHT10,neutral,low,low,2.1329%
+RIGHT,STOPPED,BIT LEFT,LEFT,LEFT10,slightly good,low,low,1.981%
+RIGHT,RIGHT,LITTLE RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.060201%
+RIGHT,RIGHT,BIT RIGHT,LEFT,LEFT10,neutral,very low,very low,0.23663%
+RIGHT,RIGHT,STANDING,LEFT,LEFT9,neutral,low,low,1.0024%
+RIGHT,RIGHT,STANDING,LEFT,LEFT10,neutral,low,low,0.83418%
+RIGHT,RIGHT,BIT LEFT,LEFT,LEFT8,neutral,low,low,1.8804%
+RIGHT,LEFT,MAX RIGHT,RIGHT,LEFT7,bad,very low,very low,0.19119%
+RIGHT,STOPPED,STANDING,LEFT,LEFT8,slightly good,high,high,3.9167%
+RIGHT,STOPPED,BIT LEFT,RIGHT,RIGHT8,slightly good,medium,medium,2.531%
+RIGHT,STOPPED,STANDING,RIGHT,RIGHT8,slightly bad,low,low,1.9509%
+RIGHT,STOPPED,BIT LEFT,RIGHT,RIGHT6,neutral,very high,very high,5.6922%
+RIGHT,RIGHT,STANDING,LEFT,LEFT7,neutral,high,high,4.0448%
+RIGHT,RIGHT,STANDING,RIGHT,RIGHT8,neutral,very low,very low,0.43492%
+RIGHT,RIGHT,BIT RIGHT,LEFT,LEFT7,neutral,low,low,1.752%
+RIGHT,RIGHT,STANDING,LEFT,RIGHT6,neutral,high,high,3.8595%
+RIGHT,RIGHT,STANDING,LEFT,RIGHT7,neutral,medium,medium,2.295%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,RIGHT10,slightly bad,very low,very low,0.12633%
+RIGHT,RIGHT,MAX LEFT,LEFT,RIGHT7,very bad,very low,very low,0.16726%
+RIGHT,STOPPED,BIT LEFT,LEFT,RIGHT10,neutral,low,low,1.9121%
+RIGHT,RIGHT,BIT LEFT,LEFT,RIGHT10,neutral,very low,very low,0.25463%
+RIGHT,RIGHT,LEFT,LEFT,RIGHT10,slightly bad,very low,very low,0.061799%
+RIGHT,RIGHT,MAX LEFT,LEFT,LEFT6,bad,low,low,0.62469%
+RIGHT,RIGHT,MAX LEFT,LEFT,LEFT9,slightly bad,very low,very low,0.12387%
+RIGHT,LEFT,MAX LEFT,LEFT,LEFT2,slightly bad,low,low,2.1633%
+RIGHT,LEFT,MAX LEFT,LEFT,LEFT7,bad,very low,very low,0.36697%
+RIGHT,LEFT,MAX LEFT,LEFT,LEFT9,slightly bad,very low,very low,0.12387%
+RIGHT,LEFT,MAX LEFT,LEFT,RIGHT3,slightly bad,low,low,1.1901%
+RIGHT,RIGHT,BIT LEFT,LEFT,LEFT10,neutral,very low,very low,0.33298%
+RIGHT,STOPPED,LITTLE LEFT,LEFT,LEFT10,neutral,very low,very low,0.22749%
+RIGHT,STOPPED,LITTLE LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.41242%
+RIGHT,LEFT,LITTLE LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.29655%
+RIGHT,LEFT,LITTLE LEFT,LEFT,LEFT10,neutral,very low,very low,0.178%
+RIGHT,LEFT,BIT LEFT,RIGHT,RIGHT10,neutral,low,low,0.82632%
+LEFT,LEFT,LITTLE LEFT,LEFT,LEFT10,neutral,very low,very low,0.11701%
+LEFT,LEFT,LITTLE LEFT,RIGHT,LEFT10,neutral,very low,very low,0.12388%
+LEFT,LEFT,BIT LEFT,RIGHT,RIGHT10,neutral,very low,very low,0.078985%
+LEFT,LEFT,BIT LEFT,LEFT,RIGHT10,neutral,very low,very low,0.079488%
+LEFT,STOPPED,LITTLE LEFT,LEFT,RIGHT10,neutral,very low,very low,0.071176%
+LEFT,STOPPED,LEFT,LEFT,RIGHT10,neutral,negligible,negligible,0.049177%
+LEFT,STOPPED,MAX LEFT,LEFT,RIGHT10,very bad,negligible,negligible,0.035141%
+RIGHT,STOPPED,STANDING,RIGHT,LEFT8,slightly bad,very high,very high,5.0274%
+RIGHT,STOPPED,LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.11984%
+RIGHT,LEFT,LEFT,LEFT,LEFT10,neutral,very low,very low,0.11142%
+RIGHT,LEFT,LEFT,RIGHT,LEFT10,neutral,very low,very low,0.11804%
+RIGHT,LEFT,LITTLE LEFT,RIGHT,RIGHT10,neutral,very low,very low,0.19134%
+RIGHT,LEFT,BIT LEFT,RIGHT,LEFT8,slightly bad,medium,medium,2.6106%
+LEFT,LEFT,STANDING,RIGHT,RIGHT9,neutral,very low,very low,0.1205%
+LEFT,LEFT,BIT RIGHT,RIGHT,RIGHT10,neutral,very low,very low,0.05749%
+LEFT,LEFT,BIT RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.061827%
+LEFT,LEFT,STANDING,LEFT,RIGHT10,neutral,very low,very low,0.078536%
+LEFT,STOPPED,STANDING,LEFT,RIGHT10,neutral,very low,very low,0.09088%
+LEFT,STOPPED,LITTLE LEFT,LEFT,LEFT10,neutral,very low,very low,0.12611%
+LEFT,RIGHT,MAX LEFT,LEFT,RIGHT9,bad,negligible,negligible,0.051868%
+RIGHT,STOPPED,LITTLE LEFT,LEFT,RIGHT10,neutral,very low,very low,0.19528%
+RIGHT,LEFT,MAX LEFT,RIGHT,LEFT9,neutral,very low,very low,0.12929%
+RIGHT,LEFT,LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.16246%
+LEFT,LEFT,LEFT,RIGHT,LEFT10,neutral,very low,very low,0.091394%
+LEFT,LEFT,BIT RIGHT,RIGHT,RIGHT9,neutral,very low,very low,0.094962%
+LEFT,LEFT,BIT LEFT,LEFT,LEFT10,neutral,very low,very low,0.14082%
+LEFT,LEFT,LEFT,LEFT,RIGHT10,neutral,negligible,negligible,0.04646%
+RIGHT,RIGHT,BIT LEFT,LEFT,RIGHT6,neutral,high,high,3.5506%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,RIGHT6,slightly bad,low,low,1.4814%
+RIGHT,RIGHT,MAX LEFT,LEFT,LEFT2,slightly bad,low,low,2.1633%
+RIGHT,RIGHT,MAX LEFT,LEFT,RIGHT5,very bad,very low,very low,0.50258%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,LEFT8,neutral,low,low,0.88652%
+RIGHT,STOPPED,LEFT,RIGHT,LEFT10,neutral,very low,very low,0.12809%
+LEFT,RIGHT,MAX LEFT,LEFT,LEFT8,very bad,very low,very low,0.16806%
+RIGHT,RIGHT,MAX LEFT,LEFT,RIGHT9,bad,very low,very low,0.062285%
+RIGHT,RIGHT,MAX LEFT,LEFT,RIGHT1,very bad,low,low,2.0719%
+RIGHT,RIGHT,LEFT,LEFT,LEFT8,slightly bad,very low,very low,0.41253%
+RIGHT,STOPPED,BIT LEFT,RIGHT,LEFT10,neutral,medium,medium,2.5131%
+RIGHT,RIGHT,STANDING,LEFT,LEFT8,bad,low,low,1.2851%
+RIGHT,RIGHT,STANDING,RIGHT,RIGHT7,neutral,low,low,0.82523%
+RIGHT,RIGHT,BIT RIGHT,LEFT,LEFT8,neutral,low,low,0.71372%
+RIGHT,RIGHT,BIT RIGHT,RIGHT,RIGHT8,slightly bad,very low,very low,0.26426%
+RIGHT,RIGHT,BIT RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.11456%
+RIGHT,RIGHT,BIT LEFT,LEFT,LEFT9,neutral,low,low,0.85425%
+RIGHT,RIGHT,BIT LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.50494%
+RIGHT,RIGHT,STANDING,LEFT,RIGHT10,neutral,very low,very low,0.2508%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.178%
+RIGHT,LEFT,LITTLE LEFT,LEFT,RIGHT10,neutral,very low,very low,0.12633%
+LEFT,STOPPED,MAX LEFT,LEFT,LEFT10,bad,very low,very low,0.06559%
+RIGHT,STOPPED,LITTLE LEFT,RIGHT,LEFT10,neutral,very low,very low,0.28164%
+RIGHT,LEFT,BIT LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.50494%
+RIGHT,STOPPED,BIT RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.17062%
+RIGHT,RIGHT,LEFT,LEFT,LEFT10,slightly bad,very low,very low,0.11142%
+RIGHT,STOPPED,LEFT,LEFT,LEFT9,slightly bad,very low,very low,0.22505%
+RIGHT,LEFT,LITTLE LEFT,RIGHT,LEFT10,neutral,very low,very low,0.2037%
+RIGHT,LEFT,BIT RIGHT,RIGHT,RIGHT8,slightly bad,very low,very low,0.26426%
+RIGHT,STOPPED,LITTLE RIGHT,RIGHT,RIGHT8,slightly bad,very low,very low,0.17709%
+RIGHT,RIGHT,LEFT,LEFT,LEFT9,slightly bad,very low,very low,0.20443%
+RIGHT,LEFT,STANDING,RIGHT,RIGHT8,neutral,very low,very low,0.43492%
+RIGHT,STOPPED,MAX LEFT,LEFT,LEFT10,neutral,very low,very low,0.078236%
+RIGHT,LEFT,LITTLE RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.060201%
+RIGHT,STOPPED,BIT RIGHT,LEFT,RIGHT9,neutral,low,low,0.59005%
+RIGHT,LEFT,BIT LEFT,LEFT,LEFT10,neutral,very low,very low,0.33298%
+LEFT,LEFT,STANDING,RIGHT,RIGHT7,neutral,very low,very low,0.39039%
+LEFT,LEFT,LITTLE RIGHT,RIGHT,RIGHT10,neutral,negligible,negligible,0.044276%
+LEFT,STOPPED,BIT RIGHT,LEFT,RIGHT10,neutral,very low,very low,0.06798%
+LEFT,STOPPED,BIT LEFT,LEFT,LEFT10,neutral,very low,very low,0.15679%
+RIGHT,LEFT,STANDING,RIGHT,LEFT10,slightly bad,low,low,0.96636%
+RIGHT,LEFT,BIT RIGHT,RIGHT,RIGHT10,slightly bad,very low,very low,0.095726%
+RIGHT,STOPPED,LITTLE RIGHT,RIGHT,RIGHT9,bad,very low,very low,0.10053%
+RIGHT,STOPPED,LITTLE RIGHT,LEFT,RIGHT9,neutral,very low,very low,0.12026%
+RIGHT,STOPPED,STANDING,RIGHT,RIGHT7,neutral,medium,medium,2.6429%
+RIGHT,STOPPED,BIT RIGHT,RIGHT,RIGHT7,slightly bad,low,low,0.63963%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,RIGHT7,very bad,very low,very low,0.099786%
+RIGHT,LEFT,BIT LEFT,RIGHT,LEFT10,neutral,very low,very low,0.41517%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,RIGHT10,bad,negligible,negligible,0.028709%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,RIGHT7,slightly bad,low,low,0.83493%
+RIGHT,STOPPED,LEFT,RIGHT,LEFT9,neutral,very low,very low,0.24645%
+RIGHT,LEFT,RIGHT,RIGHT,RIGHT8,bad,very low,very low,0.10174%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,RIGHT3,bad,very low,very low,0.4814%
+RIGHT,RIGHT,LITTLE LEFT,LEFT,RIGHT9,slightly bad,very low,very low,0.31174%
+RIGHT,LEFT,MAX RIGHT,RIGHT,RIGHT6,bad,very low,very low,0.15795%
+RIGHT,LEFT,LITTLE RIGHT,RIGHT,RIGHT10,bad,negligible,negligible,0.0554%
+RIGHT,LEFT,MAX RIGHT,RIGHT,LEFT4,bad,very low,very low,0.56274%
+RIGHT,LEFT,RIGHT,RIGHT,STOP,bad,medium,medium,2.4175%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,RIGHT6,very bad,very low,very low,0.16685%
+RIGHT,STOPPED,RIGHT,RIGHT,RIGHT8,bad,very low,very low,0.10733%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,STOP,very bad,low,low,0.90582%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,RIGHT8,bad,very low,very low,0.067823%
+RIGHT,LEFT,LITTLE RIGHT,RIGHT,RIGHT7,slightly bad,very low,very low,0.29698%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,LEFT1,very bad,low,low,0.92684%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,LEFT9,bad,very low,very low,0.081999%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,LEFT10,bad,negligible,negligible,0.053269%
+RIGHT,LEFT,MAX RIGHT,RIGHT,RIGHT2,bad,low,low,0.62751%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,RIGHT4,very bad,very low,very low,0.37894%
+RIGHT,LEFT,RIGHT,RIGHT,RIGHT10,bad,negligible,negligible,0.03849%
+RIGHT,LEFT,BIT RIGHT,RIGHT,LEFT9,slightly bad,very low,very low,0.43418%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,LEFT6,bad,very low,very low,0.29297%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,LEFT6,very bad,very low,very low,0.31363%
+RIGHT,STOPPED,MAX RIGHT,RIGHT,RIGHT9,bad,negligible,negligible,0.043019%
+RIGHT,LEFT,LITTLE RIGHT,RIGHT,LEFT9,slightly bad,very low,very low,0.21442%
+RIGHT,RIGHT,MAX RIGHT,RIGHT,RIGHT9,very bad,negligible,negligible,0.041641%
+RIGHT,STOPPED,LITTLE RIGHT,RIGHT,LEFT9,slightly bad,very low,very low,0.23842%
+RIGHT,RIGHT,RIGHT,LEFT,RIGHT10,neutral,negligible,negligible,0.039633%
+RIGHT,RIGHT,LITTLE RIGHT,LEFT,LEFT10,neutral,very low,very low,0.11569%
+RIGHT,LEFT,STANDING,RIGHT,RIGHT7,slightly bad,low,low,0.82523%
+RIGHT,LEFT,MAX RIGHT,RIGHT,LEFT9,very bad,very low,very low,0.078671%
+LEFT,STOPPED,BIT LEFT,RIGHT,RIGHT8,neutral,very low,very low,0.23705%
+LEFT,STOPPED,STANDING,RIGHT,RIGHT8,neutral,very low,very low,0.2338%
+LEFT,STOPPED,STANDING,LEFT,LEFT10,neutral,very low,very low,0.16559%
+LEFT,STOPPED,BIT RIGHT,RIGHT,RIGHT10,neutral,very low,very low,0.062238%
+LEFT,RIGHT,STANDING,LEFT,LEFT10,neutral,very low,very low,0.14504%
+RIGHT,STOPPED,BIT RIGHT,RIGHT,RIGHT8,neutral,very low,very low,0.32625%
+RIGHT,LEFT,LITTLE RIGHT,RIGHT,RIGHT8,slightly bad,very low,very low,0.1623%

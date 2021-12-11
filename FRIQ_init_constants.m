@@ -57,8 +57,7 @@ function FRIQ_init_constants()
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ=19;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ=20;
     FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ=21;
-
-%    FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL=100; % Tamas - TODO
+    FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL=22;
 
     FRIQ_const_reduction_strategy__ALL=1000;
 
@@ -96,4 +95,4 @@ function FRIQ_init_constants()
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINANDMAXQ}='CLUSTER__KMEANS_BUILD_MINANDMAXQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ}='CLUSTER__KMEANS_BUILD_MAXABSQ';
     FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ}='CLUSTER__KMEANS_BUILD_MINABSQ';
-%    FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL}='CLUSTER__HIERARCHICAL';
+    FRIQ_const_reduction_strategy__names{FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL}='CLUSTER__HIERARCHICAL';

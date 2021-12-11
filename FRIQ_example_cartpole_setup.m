@@ -124,15 +124,15 @@ function FRIQ_example_cartpole_setup()
     FRIQ_param_norandom                     = 1;
     FRIQ_param_construct_rb                 = 1;
     FRIQ_param_measure_constructed_rb_usage = 1;
-    FRIQ_param_reduce_rb                    = 0;
+    FRIQ_param_reduce_rb                    = 1;
     FRIQ_param_measure_reduced_rb_usage     = 0;
-    FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ALL;
-    FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ALL;
+    FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL;
+    %FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ALL;
 %     FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY;
 %     FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MERGE_MEAN;
     FRIQ_param_remove_unnecessary_membership_functions = 0;
-%     FRIQ_param_drawsim            = false; % indicates whether to display the graphical interface or not
-    FRIQ_param_drawsim            = true; % indicates whether to display the graphical interface or not
+    FRIQ_param_drawsim            = false; % indicates whether to display the graphical interface or not
+%    FRIQ_param_drawsim            = true; % indicates whether to display the graphical interface or not
     FRIQ_param_maxsteps           = 1000; % maximum number of steps per episode
 
     FRIQ_param_qdiff_pos_boundary         =   +1.0;

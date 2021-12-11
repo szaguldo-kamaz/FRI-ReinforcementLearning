@@ -1248,6 +1248,20 @@ function FRIQ_reduction()
 
             end
             
+            %% 22. Hierarchical clustering: min and max Q-value rules of every (sub)cluster
+            if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL 
+                global finalReducedR
+                finalReducedR = [];
+
+                tic;
+                FRIQ_reduction_strategy_cluster_hierarchical(R_tmp);
+                toc
+                found_smallest_rb = 1;
+                stopappnow = 1;
+                fprintf('\n The "finalReducedR" global variable contains the reduced rule-base! \n');
+
+            end
+            
             %% end of loop
             if stopappnow == 1
                 dlmwrite([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ], R);
