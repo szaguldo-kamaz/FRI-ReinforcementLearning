@@ -1256,8 +1256,7 @@ function FRIQ_reduction()
                 FRIQ_reduction_strategy_cluster_hierarchical(R_tmp);
                 found_smallest_rb = 1;
                 stopappnow = 1;
-                R=finalReducedR;
-
+                R = finalReducedR;
             end
             
             %% end of loop
@@ -1273,7 +1272,6 @@ function FRIQ_reduction()
         end
 
     %% remove membership functions where every rules' antecedent is nan (whole column)
-    
     if FRIQ_param_remove_unnecessary_membership_functions == 1
         FRIQ_reduction_remove_unnecessary_MFs([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ]);
     end
