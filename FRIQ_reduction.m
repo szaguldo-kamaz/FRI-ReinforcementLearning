@@ -1248,6 +1248,17 @@ function FRIQ_reduction()
 
             end
             
+            %% 22. Hierarchical clustering: min and max Q-value rules of every (sub)cluster
+            if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL 
+
+                global finalReducedR
+                finalReducedR = [];
+                FRIQ_reduction_strategy_cluster_hierarchical(R_tmp);
+                found_smallest_rb = 1;
+                stopappnow = 1;
+                R = finalReducedR;
+            end
+            
             %% end of loop
             if stopappnow == 1
                 dlmwrite([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ], R);
@@ -1261,7 +1272,6 @@ function FRIQ_reduction()
         end
 
     %% remove membership functions where every rules' antecedent is nan (whole column)
-    
     if FRIQ_param_remove_unnecessary_membership_functions == 1
         FRIQ_reduction_remove_unnecessary_MFs([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ]);
     end
