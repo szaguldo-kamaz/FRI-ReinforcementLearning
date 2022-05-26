@@ -1,6 +1,17 @@
 # FRI-ReinforcementLearning
-*Fuzzy Rule Interpolation-based Reinforcement Learning* provides a way to build sparse fuzzy rule-bases as the knowledge representation for reinforcement learning. This has the advantage, that the knowledge base can be directly human readable, as fuzzy rules are inherently self-describing and use natural language terms.
-This framework was implemented in MATLAB and in C, and provides a couple of example applications for the demonstration of the capabilities of Fuzzy Rule Interpolation-based Reinforcement Learning methods.
+*Fuzzy Rule Interpolation-based Reinforcement Learning* (FRIRL) offers a way to construct sparse fuzzy rule-bases as the knowledge representation for Reinforcement Learning methods.
+This has the advantage, that the knowledge base can be directly human readable, as fuzzy rules are inherently self-describing and can use natural language terms.
+This framework was implemented in MATLAB and in C, and provides the well-known benchmark applications (Cart-Pole, Mountain-Car, Acrobot) in order to demonstrate the capabilities of Fuzzy Rule Interpolation-based Reinforcement Learning methods.
+
+For example, after performing the rule-base construction and reduction steps for the Cart-Pole benchmark with FRIRL, one possible valid fuzzy rule-base consists of only 5 rules:
+
+| Cart Position | Cart Acceleration | Pole Position | Pole Falling | Force to apply | Q |
+| ----- | ------- | --------- | ----- | ---------| ------------- |
+| Right | Stopped | Standing  | Right | Right 10 | Slightly good |
+| Right | Stopped | Bit left  | Left  | Left 10  | Slightly good |
+| Right | Stopped | Standing  | Left  | Left 8   | Slightly good |
+| Right | Right   | Standing  | Left  | Left 8   | Bad           |
+| Right | Stopped | Max right | Right | Right 6  | Very bad      |
 
 The [C version](https://github.com/szaguldo-kamaz/FRI-ReinforcementLearning-C/) lacks some functions which the MATLAB version has (e.g. rule-base reduction methods), but performs much better (in some cases 400x times faster).
 For details see, or if you find this method useful for your research, please cite the following paper(s):
