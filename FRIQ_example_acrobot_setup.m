@@ -17,6 +17,7 @@ function FRIQ_example_acrobot_setup()
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon
     global FRIQ_param_construct_rb FRIQ_param_measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
+    global FRIQ_param_reduction_kmeans_rng
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc FRIQ_param_quantize_observationsfunc
     global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
 
@@ -44,6 +45,7 @@ function FRIQ_example_acrobot_setup()
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MAXABSQ
     global FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_MINABSQ
     global FRIQ_const_reduction_strategy__ALL
+    global FRIQ_const_reduction_strategy__ALL_CLUSTER_KMEANS
 
     FRIQ_param_appname = 'example_acrobot';
     FRIQ_param_apptitle = 'FRIQ-learning example: Acrobot';
@@ -101,6 +103,8 @@ function FRIQ_example_acrobot_setup()
     FRIQ_param_measure_reduced_rb_usage     = 0;
     FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ALL;
     FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ALL;
+    FRIQ_param_reduction_kmeans_rng = 3;
+%     FRIQ_param_reduction_strategy_secondary = [];
 %     FRIQ_param_reduction_strategy = FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY;
 %     FRIQ_param_reduction_strategy_secondary = FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__FIRST;
     FRIQ_param_remove_unnecessary_membership_functions = 0;

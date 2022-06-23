@@ -20,6 +20,7 @@ function FRIQ_reduction()
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon FRIQ_param_maxepisodes
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
+    global FRIQ_param_reduction_kmeans_rng
 
     %% Define constants - for the names of the strategies
     global FRIQ_const_reduction_strategy__MIN_Q
@@ -65,10 +66,12 @@ function FRIQ_reduction()
 %         toreduceRB_filename=['rulebases/FRIQ_example_cartpole_reduced_RB_with_ANTECEDENT_REDUNDANCY_and_ELIMINATE_DUPLICATED__MERGE_MEAN.csv'];
 %         toreduceRB_steps_filename=['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'];
 
-        if isempty(FRIQ_param_reduction_strategy_secondary)
-            reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
-        else
-            reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
+        reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+        if ~isempty(FRIQ_param_reduction_kmeans_rng)
+            reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base  '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
+        end
+        if ~isempty(FRIQ_param_reduction_strategy_secondary)
+            reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
         end
 
         % initialization for HALF_GROUP_REMOVAL
@@ -120,6 +123,10 @@ function FRIQ_reduction()
 
         %% Reduction mainloop
         for epno = 1:iterations
+
+            if ~isempty(FRIQ_param_reduction_kmeans_rng)
+                rng(FRIQ_param_reduction_kmeans_rng);
+            end
 
             % Two-step reduction strategies (need to do it here, because of possible fallbacks)
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__ELIMINATE_DUPLICATED__MAXQ || ...
