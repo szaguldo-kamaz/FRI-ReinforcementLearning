@@ -104,7 +104,7 @@ function FRIQ_example_cartpole_setup()
     FRIQ_param_states_default = [1 0 0 0];
     %FRIQ_param_states_default=[0 0 0 0.01];
 
-    FRIQ_param_antecedent_terms={
+    FRIQ_param_antecedent_terms = {
         {'LEFT','RIGHT'}
         {'LEFT','STOPPED','RIGHT'}
         {'MAX LEFT','LEFT','LITTLE LEFT','BIT LEFT','STANDING','BIT RIGHT','LITTLE RIGHT','RIGHT','MAX RIGHT'}
@@ -112,7 +112,7 @@ function FRIQ_example_cartpole_setup()
         {'LEFT10','LEFT9','LEFT8','LEFT7','LEFT6','LEFT5','LEFT4','LEFT3','LEFT2','LEFT1','STOP','RIGHT1','RIGHT2','RIGHT3','RIGHT4','RIGHT5','RIGHT6','RIGHT7','RIGHT8','RIGHT9','RIGHT10'}
     };
 
-    FRIQ_param_antecedent_names={
+    FRIQ_param_antecedent_names = {
         'CART POSITION'
         'CART ACCELERATION'
         'POLE POSITION'

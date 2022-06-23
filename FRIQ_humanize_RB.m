@@ -11,6 +11,8 @@ function FRIQ_humanize_RB(RBbasefilename)
 global FRIQ_param_states FRIQ_param_actions
 global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
 
+float_diff_tolerance = 0.0001;
+
     % load rule-base
     if exist([ RBbasefilename '_with_usage.csv'], 'file')
         RBfilename=[ RBbasefilename '_with_usage.csv'];
@@ -20,7 +22,7 @@ global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
             RBfilename=[ RBbasefilename '.csv'];
             with_usage=0;
         else
-            disp(['measure_rb_usage: rule-base file not found: ' RBbasefilename '.csv ! Please run the construction process first (set FRIQ_param_construct_rb = 1).']);
+            disp(['humanize_rb: rule-base file not found: ' RBbasefilename '.csv ! Please run the construction process first (set FRIQ_param_construct_rb = 1).']);
             return;
         end
     end
@@ -71,7 +73,7 @@ global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
                     break
                 else
                     % float magic
-                    if abs(RB(ruleno,currantec) - antecedents{currantec}(currterm)) < 0.000000000001
+                    if abs(RB(ruleno,currantec) - antecedents{currantec}(currterm)) < float_diff_tolerance
                         RBhuman{ruleno+1,currantec}=FRIQ_param_antecedent_terms{currantec}{currterm};
                         break
                     end

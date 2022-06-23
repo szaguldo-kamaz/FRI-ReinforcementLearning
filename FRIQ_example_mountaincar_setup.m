@@ -75,6 +75,18 @@ function FRIQ_example_mountaincar_setup()
     FRIQ_param_states_steepness = [1, 1];
     FRIQ_param_states_default   = [-0.5, 0.0];
 
+    FRIQ_param_antecedent_terms = {
+        {'LEFT8', 'LEFT7', 'LEFT6', 'LEFT5', 'LEFT4', 'LEFT3', 'LEFT2', 'LEFT1', 'RIGHT1', 'RIGHT2'}
+        {'LEFT3', 'LEFT2', 'LEFT1', 'RIGHT1', 'RIGHT2', 'RIGHT3'}
+        {'LEFT', 'STOPPED', 'RIGHT'}
+    };
+
+    FRIQ_param_antecedent_names = {
+        'CAR POSITION'
+        'CAR VELOCITY'
+        'FORCE TO APPLY'
+    };
+
     % configuration
     FRIQ_param_norandom                     = 1;
     FRIQ_param_construct_rb                 = 1;

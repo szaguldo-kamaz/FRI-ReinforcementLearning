@@ -76,6 +76,22 @@ function FRIQ_example_acrobot_setup()
     FRIQ_param_states_steepness = [1, 1, 1, 1];
     FRIQ_param_states_default   = [0 0 0 0];
 
+    FRIQ_param_antecedent_terms = {
+        {'CW LARGE', 'CW SMALL', 'NEUTRAL', 'CCW SMALL', 'CCW LARGE'}
+        {'CW LARGE', 'CW SMALL', 'NEUTRAL', 'CCW SMALL', 'CCW LARGE'}
+        {'CW FAST', 'CW SLOW', 'NEUTRAL', 'CCW SLOW', 'CCW FAST'}
+        {'CW FAST', 'CW SLOW', 'NEUTRAL', 'CCW SLOW', 'CCW FAST'}
+        {'CW', 'ZERO', 'CCW'}
+    };
+
+    FRIQ_param_antecedent_names = {
+        'SHOULDER ANGLE'
+        'ELBOW ANGLE'
+        'SHOULDER ANGULAR VELOCITY'
+        'ELBOW ANGULAR VELOCITY'
+        'FORCE TO APPLY'
+    };
+
     % configuration
     FRIQ_param_norandom                     = 1;
     FRIQ_param_construct_rb                 = 1;
