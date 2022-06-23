@@ -18,6 +18,7 @@ function FRIQ_example_acrobot_setup()
     global FRIQ_param_construct_rb FRIQ_param_measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc FRIQ_param_quantize_observationsfunc
+    global FRIQ_param_antecedent_terms FRIQ_param_antecedent_names
 
     % constants
     global FRIQ_const_reduction_strategy__MIN_Q
