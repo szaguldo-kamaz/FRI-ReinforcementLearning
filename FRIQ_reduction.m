@@ -20,7 +20,7 @@ function FRIQ_reduction()
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon FRIQ_param_maxepisodes
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
-    global FRIQ_param_reduction_kmeans_rng
+    global FRIQ_param_reduction_kmeans_rng FRIQ_param_reduction_kmeans_distancemetric
 
     %% Define constants - for the names of the strategies
     global FRIQ_const_reduction_strategy__MIN_Q
@@ -833,7 +833,7 @@ function FRIQ_reduction()
                     R_tmp_prev = R_tmp;
 
                     if tested_cluster == 1
-                        idx = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                        idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
                     end
 
                     % remove a cluster from the rule-base
@@ -899,7 +899,7 @@ function FRIQ_reduction()
 
                     if tested_cluster == 1
                         % returns the indexes of clusters where each of the rules belong one-by-one
-                        idx = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                        idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
                     end
 
                     % remove a cluster from the rule-base
@@ -958,7 +958,7 @@ function FRIQ_reduction()
                     R_tmp_prev = R_tmp;
 
                     if tested_cluster == 1
-                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
                     end
 
                     if size(R_tmp(idx == tested_cluster), 1) > 1
@@ -1028,7 +1028,7 @@ function FRIQ_reduction()
                     R_tmp_prev = R_tmp;
 
                     if tested_cluster == 1
-                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
                     end
 
                     if size(R_tmp(idx == tested_cluster), 1) > 1
@@ -1081,7 +1081,7 @@ function FRIQ_reduction()
                 else
                     R = [];
 
-                    [~, C] = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                    [~, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
                     for centroid_index = 1:size(C, 1)
                         R = [R; C(centroid_index, :)]; %#ok<AGROW>
@@ -1127,7 +1127,7 @@ function FRIQ_reduction()
                 else
                     R = [];
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
                     for cluster = 1:k_value
 
@@ -1183,7 +1183,7 @@ function FRIQ_reduction()
                 else
                     R = [];
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', 'sqeuclidean', 'EmptyAction', 'drop');
+                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
                     for cluster = 1:k_value
 
@@ -1237,7 +1237,7 @@ function FRIQ_reduction()
                 else
                     R = [];
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', 'cosine', 'EmptyAction', 'drop');
+                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
                     for cluster = 1:k_value
 

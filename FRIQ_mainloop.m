@@ -24,7 +24,7 @@ function FRIQ_mainloop()
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_const_reduction_strategies__all_cluster_kmeans
     global FRIQ_const_reduction_strategy__names FRIQ_const_reduction_secondary_strategies
     global FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY FRIQ_const_reduction_strategy__ALL FRIQ_const_reduction_strategy__ALL_CLUSTER_KMEANS
-    global FRIQ_param_reduction_kmeans_rng
+    global FRIQ_param_reduction_kmeans_rng FRIQ_param_reduction_kmeans_distancemetric
 
     %% Init
 
@@ -218,8 +218,11 @@ function FRIQ_mainloop()
                     % fallbacks can overwrite this in FRIQ_reduction(), so reset it every time before calling FRIQ_reduction()
                     FRIQ_param_reduction_strategy=FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY;
                     reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+                    if ~isempty(FRIQ_param_reduction_kmeans_distancemetric)
+                        reduced_rb_basefilename = [ reduced_rb_basefilename '_distmetric_' num2str(FRIQ_param_reduction_kmeans_distancemetric) ];
+                    end
                     if ~isempty(FRIQ_param_reduction_kmeans_rng)
-                        reduced_rb_basefilename = [ reduced_rb_basefilename  '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
+                        reduced_rb_basefilename = [ reduced_rb_basefilename '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
                     end
                     if ~isempty(FRIQ_param_reduction_strategy_secondary)
                         reduced_rb_basefilename = [ reduced_rb_basefilename '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
@@ -240,8 +243,11 @@ function FRIQ_mainloop()
                 % fallbacks can overwrite this in FRIQ_reduction(), so reset it every time before calling FRIQ_reduction()
                 FRIQ_param_reduction_strategy=redstrat;
                 reduced_rb_basefilename = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+                if ~isempty(FRIQ_param_reduction_kmeans_distancemetric)
+                    reduced_rb_basefilename = [ reduced_rb_basefilename '_distmetric_' num2str(FRIQ_param_reduction_kmeans_distancemetric) ];
+                end
                 if ~isempty(FRIQ_param_reduction_kmeans_rng)
-                    reduced_rb_basefilename = [ reduced_rb_basefilename  '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
+                    reduced_rb_basefilename = [ reduced_rb_basefilename '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
                 end
                 if ~isempty(FRIQ_param_reduction_strategy_secondary)
                     reduced_rb_basefilename = [ reduced_rb_basefilename '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
