@@ -121,6 +121,9 @@ function FRIQ_reduction()
             iterations = 10000;
         end
 
+        % measure cpu usage
+        cputime_reduction_start = cputime;
+
         %% Reduction mainloop
         for epno = 1:iterations
 
@@ -1268,11 +1271,26 @@ function FRIQ_reduction()
             
             %% end of loop
             if stopappnow == 1
+
+                cputime_reduction_end = cputime;
+
                 dlmwrite([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ], R);
-                copyfile([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ],[ reduction_strategy_rb_filename_base '.csv' ]);
+                copyfile([ reduction_strategy_rb_filename_base '_' filetimestamp '.csv' ], [ reduction_strategy_rb_filename_base '.csv' ]);
+
+                FRIQ_param_test_previous_rb = 1;
+                reduction_state = 0;
+                stopappnow = 0;
+                [total_reward_friq, steps_friq] = FRIQ_episode(FRIQ_param_maxsteps, FRIQ_param_alpha, FRIQ_param_gamma, FRIQ_param_epsilon);
+
                 dlmwrite([ reduction_strategy_rb_filename_base '_steps_' filetimestamp '.txt' ], steps_friq);
                 copyfile([ reduction_strategy_rb_filename_base '_steps_' filetimestamp '.txt' ], [ reduction_strategy_rb_filename_base '_steps.txt' ]);
-                stopappnow = 0;
+                dlmwrite([ reduction_strategy_rb_filename_base '_reward_' filetimestamp '.txt' ], total_reward_friq);
+                copyfile([ reduction_strategy_rb_filename_base '_reward_' filetimestamp '.txt' ], [ reduction_strategy_rb_filename_base '_reward.txt' ]);
+                dlmwrite([ reduction_strategy_rb_filename_base '_cputime_' filetimestamp '.txt' ], cputime_reduction_end - cputime_reduction_start);
+                copyfile([ reduction_strategy_rb_filename_base '_cputime_' filetimestamp '.txt' ], [ reduction_strategy_rb_filename_base '_cputime.txt' ]);
+                dlmwrite([ reduction_strategy_rb_filename_base '_reductioneps_' filetimestamp '.txt' ], epno);
+                copyfile([ reduction_strategy_rb_filename_base '_reductioneps_' filetimestamp '.txt' ], [ reduction_strategy_rb_filename_base '_reductioneps.txt' ]);
+
                 break
             end
 
