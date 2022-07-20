@@ -810,8 +810,10 @@ function FRIQ_reduction()
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_ONE
 
                 if epno == 1
+                    kmeans_create_new_clusters = true;
                     prev_total_reward_friq = total_reward_friq;
                 else
+                    kmeans_create_new_clusters = false;
                     diff_reward_friq = prev_total_reward_friq - total_reward_friq;
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
@@ -826,18 +828,27 @@ function FRIQ_reduction()
 
                         tested_cluster = 0;
                         k_value = 2;
+                        kmeans_create_new_clusters = true;
+
                     else
                         % omission of the rule group was a bad idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         R_tmp = R_tmp_prev;
+                        idx = prev_idx;
                     end
 
                     % test the next rule
-                    tested_cluster = tested_cluster + 1;
+                    % workaround - matlab kmeans() sometimes generates empty clusters -> skip them
+                    while kmeans_create_new_clusters == false  % no need for this step when creating new clusters
+                        tested_cluster = tested_cluster + 1;
+                        if tested_cluster > k_value || ~isempty(idx(idx == tested_cluster))
+                            break
+                        end
+                    end
 
                     if tested_cluster > k_value
-                        tested_cluster = 1;
+                        kmeans_create_new_clusters = true;
                         k_value = k_value + 1;
                     end
 
@@ -845,24 +856,48 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Stop.');
-                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
+                    disp('Every rule has been tested. Stop. You can try "traditional" methods for further reduction.');
+                    fprintf(logfile, 'Every rule has been tested. Stop. You can try "traditional" methods for further reduction.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
                     % there are rules that haven't been tested yet
-                    R_tmp_prev = R_tmp;
 
-                    if tested_cluster == 1
-                        idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                    if kmeans_create_new_clusters == true
+                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                        tested_cluster = 1;
+                        % workaround - matlab kmeans() sometimes generates empty clusters -> skip them - when the first cluster is empty
+                        while true
+                            if ~isnan(C(tested_cluster,:))
+                                break
+                            end
+                            disp([ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) ]);
+                            fprintf(logfile, [ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) '\r\n' ]);
+                            tested_cluster = tested_cluster + 1;
+                        end
                     end
 
-                    % remove a cluster from the rule-base
-                    R_tmp(idx == tested_cluster, :) = [];
-                    prev_idx=idx;
-                    idx(idx == tested_cluster) = [];
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
 
-                    R = R_tmp;
+                        % in that case, just skip this cluster (go to the next k-value, see above)
+                        tested_cluster = k_value;
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R_tmp_prev = R_tmp;
+                        prev_idx = idx;
+
+                        % remove a cluster from the rule-base
+                        R_tmp(idx == tested_cluster, :) = [];
+                        idx(idx == tested_cluster) = [];
+
+                        R = R_tmp;
+
+                    end
+
                 end
 
             end
@@ -871,8 +906,10 @@ function FRIQ_reduction()
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REMOVE_MANY
 
                 if epno == 1
+                    kmeans_create_new_clusters = true;
                     prev_total_reward_friq = total_reward_friq;
                 else
+                    kmeans_create_new_clusters = false;
                     diff_reward_friq = prev_total_reward_friq - total_reward_friq;
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
@@ -891,13 +928,21 @@ function FRIQ_reduction()
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         R_tmp = R_tmp_prev;
+                        idx = prev_idx;
                     end
 
                     % test the next rule
-                    tested_cluster = tested_cluster + 1;
+                    % workaround - matlab kmeans() sometimes generates empty clusters -> skip them
+                    while kmeans_create_new_clusters == false  % no need for this step when creating new clusters
+                        tested_cluster = tested_cluster + 1;
+                        if tested_cluster > k_value || ~isempty(idx(idx == tested_cluster))
+                            break
+                        end
+                    end
 
                     if tested_cluster > k_value
-                        tested_cluster = 1;
+
+                        kmeans_create_new_clusters = true;
 
                         if removed_clusters == 1
                             k_value = 2;
@@ -912,25 +957,49 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Stop.');
-                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
+                    disp('Every rule has been tested. Stop. You can try "traditional" methods for further reduction.');
+                    fprintf(logfile, 'Every rule has been tested. Stop. You can try "traditional" methods for further reduction.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
                     % there are rules that haven't been tested yet
-                    R_tmp_prev = R_tmp;
 
-                    if tested_cluster == 1
+                    if kmeans_create_new_clusters == true
                         % returns the indexes of clusters where each of the rules belong one-by-one
-                        idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                        [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                        tested_cluster = 1;
+                        % workaround - matlab kmeans() sometimes generates empty clusters -> skip them - when the first cluster is empty
+                        while true
+                            if ~isnan(C(tested_cluster,:))
+                                break
+                            end
+                            disp([ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) ]);
+                            fprintf(logfile, [ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) '\r\n' ]);
+                            tested_cluster = tested_cluster + 1;
+                        end
                     end
 
-                    % remove a cluster from the rule-base
-                    R_tmp(idx == tested_cluster, :) = [];
-                    prev_idx=idx;
-                    idx(idx == tested_cluster) = [];
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
 
-                    R = R_tmp;
+                        % in that case, just skip this cluster (go to the next k-value, see above)
+                        tested_cluster = k_value;
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R_tmp_prev = R_tmp;
+                        prev_idx = idx;
+
+                        % remove a cluster from the rule-base
+                        R_tmp(idx == tested_cluster, :) = [];
+                        idx(idx == tested_cluster) = [];
+
+                        R = R_tmp;
+
+                    end
+
                 end
 
             end
@@ -939,8 +1008,10 @@ function FRIQ_reduction()
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_ONE
 
                 if epno == 1
+                    kmeans_create_new_clusters = true;
                     prev_total_reward_friq = total_reward_friq;
                 else
+                    kmeans_create_new_clusters = false;
                     diff_reward_friq = prev_total_reward_friq - total_reward_friq;
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
@@ -953,6 +1024,7 @@ function FRIQ_reduction()
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         prev_total_reward_friq = total_reward_friq;
 
+                        kmeans_create_new_clusters = true;
                         tested_cluster = 0;
                         k_value = 2;
                     else
@@ -960,13 +1032,20 @@ function FRIQ_reduction()
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         R_tmp = R_tmp_prev;
+                        idx = prev_idx;
                     end
 
                     % test the next rule
-                    tested_cluster = tested_cluster + 1;
+                    % workaround - matlab kmeans() sometimes generates empty clusters -> skip them
+                    while kmeans_create_new_clusters == false  % no need for this step when creating new clusters
+                        tested_cluster = tested_cluster + 1;
+                        if tested_cluster > k_value || ~isempty(idx(idx == tested_cluster))
+                            break
+                        end
+                    end
 
                     if tested_cluster > k_value
-                        tested_cluster = 1;
+                        kmeans_create_new_clusters = true;
                         k_value = k_value + 1;
                     end
 
@@ -974,29 +1053,71 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Stop.');
-                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
+                    disp('Every rule has been tested. Stop. You can try "traditional" methods for further reduction.');
+                    fprintf(logfile, 'Every rule has been tested. Stop. You can try "traditional" methods for further reduction.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
                     % there are rules that haven't been tested yet
-                    R_tmp_prev = R_tmp;
 
-                    if tested_cluster == 1
+                    if kmeans_create_new_clusters == true
                         [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                        tested_cluster = 1;
+                        % workaround - matlab kmeans() sometimes generates empty clusters -> skip them - when the first cluster is empty
+                        while true
+                            if ~isnan(C(tested_cluster,:))
+                                break
+                            end
+                            disp([ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) ]);
+                            fprintf(logfile, [ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) '\r\n' ]);
+                            tested_cluster = tested_cluster + 1;
+                        end
                     end
 
-                    if size(R_tmp(idx == tested_cluster), 1) > 1
-                        % add centroid element as a rule
-                        R_tmp(size(R_tmp, 1) + 1, :) = C(tested_cluster, :);
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
+                        % in that case, just skip this cluster (go to the next k-value, see above)
+                        tested_cluster = k_value;
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R_tmp_prev = R_tmp;
+                        prev_idx = idx;
+
+                        % if there is more than one element in the cluster
+                        if size(R_tmp(idx == tested_cluster), 1) > 1
+                            % check wether centroid is inside the Universe (e.g. mountaincar + 'correlation' distance metrics)
+                            for centroid_dim = 1:(numofstates + 1)
+                                if C(tested_cluster, centroid_dim) < U(centroid_dim, 1)
+                                    disp([ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.\r\n']);
+                                    C(tested_cluster, centroid_dim) = U(centroid_dim, 1);
+                                elseif C(tested_cluster, centroid_dim) > U(centroid_dim, mu)
+                                    disp([ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.\r\n']);
+                                    C(tested_cluster, centroid_dim) = U(centroid_dim, mu);
+                                end
+                            end
+                            % add centroid element as a rule
+                            if max(ismember(R_tmp, C(tested_cluster, :), 'rows'))
+                                disp('Centroid rule already in rule-base. Skipping.');
+                                fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
+                            else
+                                R_tmp(size(R_tmp, 1) + 1, :) = C(tested_cluster, :);
+                                idx(size(idx, 1) + 1) = 0;  % mark the newly inserted centroid rule in idx also
+                            end
+                        end
+
+                        % remove a cluster from the rule-base
+                        R_tmp(idx == tested_cluster, :) = [];
+                        idx(idx == tested_cluster) = [];
+
+                        R = R_tmp;
+
                     end
 
-                    % remove a cluster from the rule-base
-                    R_tmp(idx == tested_cluster, :) = [];
-                    prev_idx=idx;
-                    idx(idx == tested_cluster) = [];
-
-                    R = R_tmp;
                 end
 
             end
@@ -1005,8 +1126,10 @@ function FRIQ_reduction()
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__KMEANS_REPLACE_MANY
 
                 if epno == 1
+                    kmeans_create_new_clusters = true;
                     prev_total_reward_friq = total_reward_friq;
                 else
+                    kmeans_create_new_clusters = false;
                     diff_reward_friq = prev_total_reward_friq - total_reward_friq;
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
@@ -1025,13 +1148,20 @@ function FRIQ_reduction()
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' was a bad idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         R_tmp = R_tmp_prev;
+                        idx = prev_idx;
                     end
 
                     % test the next rule
-                    tested_cluster = tested_cluster + 1;
+                    % workaround - matlab kmeans() sometimes generates empty clusters -> skip them
+                    while kmeans_create_new_clusters == false  % no need for this step when creating new clusters
+                        tested_cluster = tested_cluster + 1;
+                        if tested_cluster > k_value || ~isempty(idx(idx == tested_cluster))
+                            break
+                        end
+                    end
 
                     if tested_cluster > k_value
-                        tested_cluster = 1;
+                        kmeans_create_new_clusters = true;
 
                         if removed_clusters == 1
                             k_value = 2;
@@ -1046,34 +1176,75 @@ function FRIQ_reduction()
 
                 if k_value > size(R_tmp, 1)
                     % every rule has been tested
-                    disp('Every rule has been tested. Stop.');
-                    fprintf(logfile, 'Every rule has been tested. Stop.\r\n');
+                    disp('Every rule has been tested. Stop. You can try "traditional" methods for further reduction.');
+                    fprintf(logfile, 'Every rule has been tested. Stop. You can try "traditional" methods for further reduction.\r\n');
                     R = R_tmp;
                     stopappnow = 1;
                 else
                     % there are rules that haven't been tested yet
-                    R_tmp_prev = R_tmp;
 
-                    if tested_cluster == 1
+                    if kmeans_create_new_clusters == true
                         [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                        tested_cluster = 1;
+                        % workaround - matlab kmeans() sometimes generates empty clusters -> skip them - when the first cluster is empty
+                        while true
+                            if ~isnan(C(tested_cluster,:))
+                                break
+                            end
+                            disp([ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) ]);
+                            fprintf(logfile, [ 'kmeans() created an empty cluster. Skipping cluster: ' num2str(tested_cluster) '\r\n' ]);
+                            tested_cluster = tested_cluster + 1;
+                        end
                     end
 
-                    if size(R_tmp(idx == tested_cluster), 1) > 1
-                        % add centroid element as a rule
-                        R_tmp(size(R_tmp, 1) + 1, :) = C(tested_cluster, :);
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
+
+                        % in that case, just skip this cluster (go to the next k-value, see above)
+                        tested_cluster = k_value;
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R_tmp_prev = R_tmp;
+                        prev_idx = idx;
+
+                        % if there is more than one element in the cluster
+                        if size(R_tmp(idx == tested_cluster), 1) > 1
+                            % check wether centroid is inside the Universe (e.g. mountaincar + 'correlation' distance metrics)
+                            for centroid_dim = 1:(numofstates + 1)
+                                if C(tested_cluster, centroid_dim) < U(centroid_dim, 1)
+                                    disp([ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.\r\n']);
+                                    C(tested_cluster, centroid_dim) = U(centroid_dim, 1);
+                                elseif C(tested_cluster, centroid_dim) > U(centroid_dim, mu)
+                                    disp([ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(tested_cluster, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.\r\n']);
+                                    C(tested_cluster, centroid_dim) = U(centroid_dim, mu);
+                                end
+                            end
+                            % add centroid element as a rule
+                            if max(ismember(R_tmp, C(tested_cluster, :), 'rows'))
+                                disp('Centroid rule already in rule-base. Skipping.');
+                                fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
+                            else
+                                R_tmp(size(R_tmp, 1) + 1, :) = C(tested_cluster, :);
+                                idx(size(idx, 1) + 1) = 0;  % mark the newly inserted centroid rule in idx also                            end
+                            end
+                        end
+
+                        % remove a cluster from the rule-base
+                        R_tmp(idx == tested_cluster, :) = [];
+                        idx(idx == tested_cluster) = [];
+
+                        R = R_tmp;
                     end
-
-                    % remove a cluster from the rule-base
-                    R_tmp(idx == tested_cluster, :) = [];
-                    prev_idx=idx;
-                    idx(idx == tested_cluster) = [];
-
-                    R = R_tmp;
                 end
 
             end
 
-            %% 18. kmeans v5, DO NOT USE THIS STRATEGY WITH COSINE DISTANCE METRICS! - CLUSTER__KMEANS_BUILD_CENTROID
+            %% 18. kmeans v5, COSINE + CORRELATION DISTANCE METRICS produces suboptimal results - CLUSTER__KMEANS_BUILD_CENTROID
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__KMEANS_BUILD_CENTROID
 
                 if epno == 1
@@ -1108,12 +1279,41 @@ function FRIQ_reduction()
                     fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
-                    R = [];
 
-                    [~, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                    [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
-                    for centroid_index = 1:size(C, 1)
-                        R = [R; C(centroid_index, :)]; %#ok<AGROW>
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
+
+                        % in that case, just skip this cluster (go to the next k-value, see above - using the same RB, it will "fail" againa, so k_value will be incremented)
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R = [];
+
+                        for centroidrule_index = 1:size(C, 1)
+                            for centroid_dim = 1:(numofstates + 1)
+                                if C(centroidrule_index, centroid_dim) < U(centroid_dim, 1)
+                                    disp([ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(centroidrule_index, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with minimum value: ' num2str(C(centroidrule_index, centroid_dim)) '->' num2str(U(centroid_dim, 1)) '.\r\n']);
+                                    C(centroidrule_index, centroid_dim) = U(centroid_dim, 1);
+                                elseif C(centroidrule_index, centroid_dim) > U(centroid_dim, mu)
+                                    disp([ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(centroidrule_index, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.']);
+                                    fprintf(logfile, [ 'Centroid outside the Universe, overwriting with maximum value: ' num2str(C(centroidrule_index, centroid_dim)) '->' num2str(U(centroid_dim, mu)) '.\r\n']);
+                                    C(centroidrule_index, centroid_dim) = U(centroid_dim, mu);
+                                end
+                            end
+                            % add centroid element as a rule
+                            if ~isempty(R) && max(ismember(R, C(centroidrule_index, :), 'rows'))
+                                disp('Centroid rule already in rule-base. Skipping.');
+                                fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
+                            else
+                                R = [R; C(centroidrule_index, :)]; %#ok<AGROW>
+                            end
+                        end
+
                     end
 
                 end
@@ -1156,22 +1356,34 @@ function FRIQ_reduction()
                     fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
-                    R = [];
+                    [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
 
-                    for cluster = 1:k_value
+                        % in that case, just skip this cluster (go to the next k-value, see above - using the same RB, it will "fail" againa, so k_value will be incremented)
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
 
-                        if size(R_tmp(idx == cluster, :), 1) < 3
-                            R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
-                            continue
+                    else  % kmeans() was seemingly ok
+
+                        R = [];
+
+                        for cluster = 1:k_value
+
+                            if size(R_tmp(idx == cluster, :), 1) < 3
+                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                                continue
+                            end
+
+                            C = R_tmp(idx == cluster, :);
+                            [~, maxindex] = max(C(:, numofstates + 2));
+                            [~, minindex] = min(C(:, numofstates + 2));
+                            R = [R; C(maxindex, :)]; %#ok<AGROW>
+                            R = [R; C(minindex, :)]; %#ok<AGROW>
+
                         end
 
-                        C = R_tmp(idx == cluster, :);
-                        [~, maxindex] = max(C(:, numofstates + 2));
-                        [~, minindex] = min(C(:, numofstates + 2));
-                        R = [R; C(maxindex, :)]; %#ok<AGROW>
-                        R = [R; C(minindex, :)]; %#ok<AGROW>
                     end
 
                 end
@@ -1214,20 +1426,33 @@ function FRIQ_reduction()
                     fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
-                    R = [];
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                    [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
-                    for cluster = 1:k_value
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
 
-                        if size(R_tmp(idx == cluster, :), 1) < 2
-                            R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
-                            continue
+                        % in that case, just skip this cluster (go to the next k-value, see above - using the same RB, it will "fail" againa, so k_value will be incremented)
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R = [];
+
+                        for cluster = 1:k_value
+
+                            if size(R_tmp(idx == cluster, :), 1) < 2
+                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                                continue
+                            end
+
+                            C = R_tmp(idx == cluster, :);
+                            [~, maxindex] = max(abs(C(:, numofstates + 2)));
+                            R = [R; C(maxindex, :)]; %#ok<AGROW>
+
                         end
 
-                        C = R_tmp(idx == cluster, :);
-                        [~, maxindex] = max(abs(C(:, numofstates + 2)));
-                        R = [R; C(maxindex, :)]; %#ok<AGROW>
                     end
 
                 end
@@ -1270,26 +1495,39 @@ function FRIQ_reduction()
                     fprintf(logfile, 'Solution found, or every rule has been tested. Stop.\r\n');
                     stopappnow = 1;
                 else
-                    R = [];
 
-                    idx = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
+                    [idx, C] = kmeans(R_tmp, k_value, 'Distance', FRIQ_param_reduction_kmeans_distancemetric, 'EmptyAction', 'drop');
 
-                    for cluster = 1:k_value
+                    % something went wrong with kmeans() ? (can happen, also gives a warning, this way we can detect it)
+                    if max(idx) ~= size(C,1)
 
-                        if size(R_tmp(idx == cluster, :), 1) < 2
-                            R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
-                            continue
+                        % in that case, just skip this cluster (go to the next k-value, see above - using the same RB, it will "fail" againa, so k_value will be incremented)
+                        disp('kmeans() did not produce a valid result. Skipping.');
+                        fprintf(logfile, 'kmeans() did not produce a valid result. Skipping.\r\n');
+
+                    else  % kmeans() was seemingly ok
+
+                        R = [];
+
+                        for cluster = 1:k_value
+
+                            if size(R_tmp(idx == cluster, :), 1) < 2
+                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                                continue
+                            end
+
+                            C = R_tmp(idx == cluster, :);
+                            [~, minindex] = min(abs(C(:, numofstates + 2)));
+                            R = [R; C(minindex, :)]; %#ok<AGROW>
+
                         end
 
-                        C = R_tmp(idx == cluster, :);
-                        [~, minindex] = min(abs(C(:, numofstates + 2)));
-                        R = [R; C(minindex, :)]; %#ok<AGROW>
                     end
 
                 end
 
             end
-            
+
             %% 22. Hierarchical clustering: min and max Q-value rules of every (sub)cluster
             if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__CLUSTER__HIERARCHICAL 
 
