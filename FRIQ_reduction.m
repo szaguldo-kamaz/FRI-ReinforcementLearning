@@ -21,6 +21,7 @@ function FRIQ_reduction()
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
     global FRIQ_param_reduction_kmeans_rng FRIQ_param_reduction_kmeans_distancemetric
+    global FRIQ_param_test_previous_rb
 
     %% Define constants - for the names of the strategies
     global FRIQ_const_reduction_strategy__MIN_Q
@@ -67,8 +68,11 @@ function FRIQ_reduction()
 %         toreduceRB_steps_filename=['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB_steps.txt'];
 
         reduction_strategy_rb_filename_base = [ 'rulebases/FRIQ_' FRIQ_param_appname '_reduced_RB_with_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy} ];
+        if ~isempty(FRIQ_param_reduction_kmeans_distancemetric)
+            reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base '_distmetric_' num2str(FRIQ_param_reduction_kmeans_distancemetric) ];
+        end
         if ~isempty(FRIQ_param_reduction_kmeans_rng)
-            reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base  '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
+            reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base '_withrng_' num2str(FRIQ_param_reduction_kmeans_rng) ];
         end
         if ~isempty(FRIQ_param_reduction_strategy_secondary)
             reduction_strategy_rb_filename_base = [ reduction_strategy_rb_filename_base '_and_' FRIQ_const_reduction_strategy__names{FRIQ_param_reduction_strategy_secondary} ];
