@@ -1102,6 +1102,7 @@ function FRIQ_reduction()
                             end
                             % add centroid element as a rule
                             if max(ismember(R_tmp, C(tested_cluster, :), 'rows'))
+                                % can easily happen, beacuse the points are aligned in case they are out of the Universe (see above)
                                 disp('Centroid rule already in rule-base. Skipping.');
                                 fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
                             else
@@ -1226,6 +1227,7 @@ function FRIQ_reduction()
                             end
                             % add centroid element as a rule
                             if max(ismember(R_tmp, C(tested_cluster, :), 'rows'))
+                                % can easily happen, beacuse the points are aligned in case they are out of the Universe (see above)
                                 disp('Centroid rule already in rule-base. Skipping.');
                                 fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
                             else
@@ -1307,6 +1309,7 @@ function FRIQ_reduction()
                             end
                             % add centroid element as a rule
                             if ~isempty(R) && max(ismember(R, C(centroidrule_index, :), 'rows'))
+                                % can easily happen, beacuse the points are aligned in case they are out of the Universe (see above)
                                 disp('Centroid rule already in rule-base. Skipping.');
                                 fprintf(logfile, 'Centroid rule already in rule-base. Skipping.\r\n');
                             else
@@ -1369,18 +1372,18 @@ function FRIQ_reduction()
 
                         R = [];
 
-                        for cluster = 1:k_value
+                        for clusterno = 1:k_value
 
-                            if size(R_tmp(idx == cluster, :), 1) < 3
-                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                            if size(R_tmp(idx == clusterno, :), 1) < 3
+                                R = [R; R_tmp(idx == clusterno, :)]; %#ok<AGROW>
                                 continue
                             end
 
-                            C = R_tmp(idx == cluster, :);
-                            [~, maxindex] = max(C(:, numofstates + 2));
-                            [~, minindex] = min(C(:, numofstates + 2));
-                            R = [R; C(maxindex, :)]; %#ok<AGROW>
-                            R = [R; C(minindex, :)]; %#ok<AGROW>
+                            rulecluster = R_tmp(idx == clusterno, :);
+                            [~, maxindex] = max(rulecluster(:, numofstates + 2));
+                            [~, minindex] = min(rulecluster(:, numofstates + 2));
+                            R = [R; rulecluster(maxindex, :)]; %#ok<AGROW>
+                            R = [R; rulecluster(minindex, :)]; %#ok<AGROW>
 
                         end
 
@@ -1440,16 +1443,16 @@ function FRIQ_reduction()
 
                         R = [];
 
-                        for cluster = 1:k_value
+                        for clusterno = 1:k_value
 
-                            if size(R_tmp(idx == cluster, :), 1) < 2
-                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                            if size(R_tmp(idx == clusterno, :), 1) < 2
+                                R = [R; R_tmp(idx == clusterno, :)]; %#ok<AGROW>
                                 continue
                             end
 
-                            C = R_tmp(idx == cluster, :);
-                            [~, maxindex] = max(abs(C(:, numofstates + 2)));
-                            R = [R; C(maxindex, :)]; %#ok<AGROW>
+                            rulecluster = R_tmp(idx == clusterno, :);
+                            [~, maxindex] = max(abs(rulecluster(:, numofstates + 2)));
+                            R = [R; rulecluster(maxindex, :)]; %#ok<AGROW>
 
                         end
 
@@ -1509,16 +1512,16 @@ function FRIQ_reduction()
 
                         R = [];
 
-                        for cluster = 1:k_value
+                        for clusterno = 1:k_value
 
-                            if size(R_tmp(idx == cluster, :), 1) < 2
-                                R = [R; R_tmp(idx == cluster, :)]; %#ok<AGROW>
+                            if size(R_tmp(idx == clusterno, :), 1) < 2
+                                R = [R; R_tmp(idx == clusterno, :)]; %#ok<AGROW>
                                 continue
                             end
 
-                            C = R_tmp(idx == cluster, :);
-                            [~, minindex] = min(abs(C(:, numofstates + 2)));
-                            R = [R; C(minindex, :)]; %#ok<AGROW>
+                            rulecluster = R_tmp(idx == clusterno, :);
+                            [~, minindex] = min(abs(rulecluster(:, numofstates + 2)));
+                            R = [R; rulecluster(minindex, :)]; %#ok<AGROW>
 
                         end
 
