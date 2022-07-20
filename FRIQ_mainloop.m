@@ -20,6 +20,7 @@ function FRIQ_mainloop()
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon FRIQ_param_maxepisodes
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
     global FRIQ_param_construct_rb FRIQ_param_measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
+    global FRIQ_param_test_previous_rb FRIQ_param_test_previous_rb_filename
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_const_reduction_strategies__all_cluster_kmeans
     global FRIQ_const_reduction_strategy__names FRIQ_const_reduction_secondary_strategies
     global FRIQ_const_reduction_strategy__ANTECEDENT_REDUNDANCY FRIQ_const_reduction_strategy__ALL FRIQ_const_reduction_strategy__ALL_CLUSTER_KMEANS
@@ -117,6 +118,15 @@ function FRIQ_mainloop()
 
     %% Simulation starts here
 
+    if FRIQ_param_test_previous_rb == 1
+        epno = 1;
+        R = dlmread(FRIQ_param_test_previous_rb_filename);
+        [total_reward_friq, steps_friq] = FRIQ_episode(FRIQ_param_maxsteps, FRIQ_param_alpha, FRIQ_param_gamma, FRIQ_param_epsilon);
+        [num_of_rules, ~] = size(R);
+        disp(            ['FRIQ_episode: ' int2str(epno) ' FRIQ_steps: ' int2str(steps_friq) ' FRIQ_reward: ' num2str(total_reward_friq) ' epsilon: ' num2str(FRIQ_param_epsilon) ' rules: ' num2str(num_of_rules)])
+        fprintf(logfile, ['FRIQ_episode: ' int2str(epno) ' FRIQ_steps: ' int2str(steps_friq) ' FRIQ_reward: ' num2str(total_reward_friq) ' epsilon: ' num2str(FRIQ_param_epsilon) ' rules: ' num2str(num_of_rules) '\r\n']);
+    end
+
     if FRIQ_param_construct_rb == 1
 
         for epno = 1:FRIQ_param_maxepisodes
@@ -170,7 +180,9 @@ function FRIQ_mainloop()
 
     %% Humanize RB (preferrably with "usage")
 
-    FRIQ_humanize_RB(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB']);
+    if FRIQ_param_construct_rb == 1
+        FRIQ_humanize_RB(['rulebases/FRIQ_' FRIQ_param_appname '_incrementally_constructed_RB']);
+    end
 
     %% Reduction of a previously constructed rule-base
 

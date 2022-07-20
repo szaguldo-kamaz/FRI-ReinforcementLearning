@@ -10,6 +10,7 @@ function [total_reward_friq, steps_friq] = FRIQ_episode(maxsteps, alpha, gamma, 
 
     global FRIQ_param_drawfunc FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_quantize_observationsfunc
     global FRIQ_param_states FRIQ_param_statedivs FRIQ_param_states_default FRIQ_param_actions
+    global FRIQ_param_test_previous_rb
     global FRIQ_param_drawsim
     global stopappnow stepno reduction_state measure_rb_usage_state
     global debug_on
@@ -19,12 +20,16 @@ function [total_reward_friq, steps_friq] = FRIQ_episode(maxsteps, alpha, gamma, 
     total_reward_friq = 0;
 
     if measure_rb_usage_state == 1
-       noRBupdate=1;
+        noRBupdate=1;
     else
-        if reduction_state == 1
+        if FRIQ_param_test_previous_rb == 1
             noRBupdate=1;
         else
-            noRBupdate=0;
+            if reduction_state == 1
+                noRBupdate=1;
+            else
+                noRBupdate=0;
+            end
         end
     end
 
