@@ -13,7 +13,7 @@ function FRIQ_example_acrobot_setup()
     global FRIQ_param_appname FRIQ_param_apptitle
     global FRIQ_param_FIVE_UD FRIQ_param_states FRIQ_param_states_default FRIQ_param_statedivs FRIQ_param_states_steepness
     global FRIQ_param_actions FRIQ_param_actiondiv
-    global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary FRIQ_param_qdiff_final_tolerance FRIQ_param_reward_good_above FRIQ_param_reduction_reward_tolerance FRIQ_param_reduction_rule_distance
+    global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary FRIQ_param_qdiff_final_tolerance FRIQ_param_reward_good_above FRIQ_param_reduction_reward_tolerance FRIQ_param_reduction_rule_distance FRIQ_param_reduction_allow_better_reward_above_tolerance
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon
     global FRIQ_param_construct_rb FRIQ_param_measure_constructed_rb_usage FRIQ_param_reduce_rb FRIQ_param_measure_reduced_rb_usage
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
@@ -119,6 +119,7 @@ function FRIQ_example_acrobot_setup()
     FRIQ_param_reward_good_above            =    0.0;
     FRIQ_param_reduction_reward_tolerance   =  200.0;
     FRIQ_param_reduction_rule_distance      =    0.1;   % for defining 'similar' rules
+    FRIQ_param_reduction_allow_better_reward_above_tolerance =    true;  % if reward is better, but larger than reduction_reward_tolerance, allow or not?
 
     % learning parameters
     FRIQ_param_alpha    = 0.5;   % learning rate

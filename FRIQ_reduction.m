@@ -16,7 +16,7 @@ function FRIQ_reduction()
     global FRIQ_param_appname FRIQ_param_apptitle
     global FRIQ_param_FIVE_UD FRIQ_param_states FRIQ_param_statedivs FRIQ_param_states_steepness FRIQ_param_states_default
     global FRIQ_param_actions FRIQ_param_actiondiv
-    global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary FRIQ_param_qdiff_final_tolerance FRIQ_param_reward_good_above FRIQ_param_reduction_reward_tolerance FRIQ_param_reduction_rule_distance
+    global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary FRIQ_param_qdiff_final_tolerance FRIQ_param_reward_good_above FRIQ_param_reduction_reward_tolerance FRIQ_param_reduction_rule_distance FRIQ_param_reduction_allow_better_reward_above_tolerance
     global FRIQ_param_norandom FRIQ_param_drawsim FRIQ_param_maxsteps FRIQ_param_alpha FRIQ_param_gamma FRIQ_param_epsilon FRIQ_param_maxepisodes
     global FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_drawfunc
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
@@ -398,7 +398,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Keeping rules: ', int2str(find(ismember(R_tmp(:, 1:numofstates + 1), R(:, 1:numofstates + 1), 'rows')).'), '.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Keeping rules: ', int2str(find(ismember(R_tmp(:, 1:numofstates + 1), R(:, 1:numofstates + 1), 'rows')).'), '.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
                         prev_total_reward_friq = total_reward_friq;
@@ -434,7 +436,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the antecedent from the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of antecedent: no. ', int2str(tested_antecedent), ' from rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of antecedent: no. ', int2str(tested_antecedent), ' from rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -525,7 +529,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -597,7 +603,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -664,7 +672,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -727,7 +737,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' Omission of rules: ', int2str(rule_group), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -804,7 +816,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -863,7 +877,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -929,7 +945,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -993,7 +1011,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % omission of the rule group could be a good idea
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' Tested cluster: ', int2str(tested_cluster), ' Omission of rules: ', int2str(find(ismember(R_tmp_prev, R_tmp_prev(prev_idx == tested_cluster, :), 'rows')).'), ' could be a good idea.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -1063,7 +1083,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
                         % possible solution found
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' seems to be good enough.', ' Reward diff was: ', num2str(diff_reward_friq)]);
                         fprintf(logfile, ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' seems to be good enough.', ' Reward diff was: ', num2str(diff_reward_friq), '\r\n']);
@@ -1108,7 +1130,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
 
                         % possible solution found
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' seems to be good enough.', ' Reward diff was: ', num2str(diff_reward_friq)]);
@@ -1164,7 +1188,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
 
                         % possible solution found
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' seems to be good enough.', ' Reward diff was: ', num2str(diff_reward_friq)]);
@@ -1218,7 +1244,9 @@ function FRIQ_reduction()
 
                     if (total_reward_friq > FRIQ_param_reward_good_above) ...
                             && (steps_friq <= steps_friq_incremental) ...
-                            && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
+                            && ( (FRIQ_param_reduction_allow_better_reward_above_tolerance && (prev_total_reward_friq <= total_reward_friq)) ...
+                                 || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance) )
+%                             && ((prev_total_reward_friq <= total_reward_friq) || (abs(diff_reward_friq) <= FRIQ_param_reduction_reward_tolerance))
 
                         % possible solution found
                         disp(            ['FRIQ_reduction_episode: ', int2str(epno), ' K-value: ', int2str(k_value), ' seems to be good enough.', ' Reward diff was: ', num2str(diff_reward_friq)]);
