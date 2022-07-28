@@ -22,6 +22,7 @@ function FRIQ_reduction()
     global FRIQ_param_reduction_strategy FRIQ_param_reduction_strategy_secondary FRIQ_param_remove_unnecessary_membership_functions
     global FRIQ_param_reduction_kmeans_rng FRIQ_param_reduction_kmeans_distancemetric
     global FRIQ_param_test_previous_rb
+    global FRIQ_param_maxreductionepisodes
 
     %% Define constants - for the names of the strategies
     global FRIQ_const_reduction_strategy__MIN_Q
@@ -119,10 +120,14 @@ function FRIQ_reduction()
         % initialization for BUILD_MINANDMAXQ
         found_smallest_rb = 0;
 
+        if ~isempty(FRIQ_param_maxreductionepisodes)
+            FRIQ_param_maxreductionepisodes = 50000;
+        end
+
         if FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__MIN_Q || FRIQ_param_reduction_strategy == FRIQ_const_reduction_strategy__MAX_Q
             iterations = (numofrules + 1);
         else
-            iterations = 10000;
+            iterations = FRIQ_param_maxreductionepisodes;
         end
 
         % measure cpu usage

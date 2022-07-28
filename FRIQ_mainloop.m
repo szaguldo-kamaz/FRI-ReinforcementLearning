@@ -76,14 +76,8 @@ function FRIQ_mainloop()
     set(gcf, 'name', FRIQ_param_apptitle);
     set(gcf, 'Color', 'w');
 
-    if ~exist('FRIQ_param_maxepisodes', 'var')
+    if ~isempty(FRIQ_param_maxepisodes)
         FRIQ_param_maxepisodes = 2000;
-    else
-
-        if isempty(FRIQ_param_maxepisodes)
-            FRIQ_param_maxepisodes = 2000;
-        end
-
     end
 
     global filetimestamp
