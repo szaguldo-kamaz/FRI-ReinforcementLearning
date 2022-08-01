@@ -1,4 +1,4 @@
-% Cart-Pole Problem example - Load a previously constructed RB
+% MountainCar Problem example - Load a previously constructed RB
 % with FRI-based Reinforcement Learning
 %
 % FRIQ-learning framework v0.60
@@ -15,13 +15,13 @@ global FRIQ_param_norandom  FRIQ_param_construct_rb FRIQ_param_reduce_rb FRIQ_pa
 global FRIQ_param_test_previous_rb FRIQ_param_test_previous_rb_filename
 
 FRIQ_init_constants();
-FRIQ_example_cartpole_setup();
+FRIQ_example_mountaincar_setup();
 
 FRIQ_param_norandom                     = 1;
 FRIQ_param_construct_rb                 = 0;
 FRIQ_param_reduce_rb                    = 0;
 FRIQ_param_test_previous_rb             = 1;
-FRIQ_param_test_previous_rb_filename    = 'rulebases\FRIQ_example_cartpole_incrementally_constructed_RB.csv';
+FRIQ_param_test_previous_rb_filename    = 'rulebases\FRIQ_example_mountaincar_incrementally_constructed_RB.csv';
 FRIQ_param_drawsim                      = false; % indicates whether to display the graphical interface or not
 
 FRIQ_mainloop();
