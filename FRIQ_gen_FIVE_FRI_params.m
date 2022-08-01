@@ -1,11 +1,11 @@
 function [UD, VED, R] = FRIQ_gen_FIVE_FRI_params(UD, states, states_steepness, actions)
 % FRIQ_gen_five_fri_params: Generate parameters for FRIQ-learning framework
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     Ulen = size(UD, 2);

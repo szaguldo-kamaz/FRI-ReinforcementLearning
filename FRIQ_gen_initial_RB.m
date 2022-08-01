@@ -1,11 +1,11 @@
 function [rulebase] = FRIQ_gen_initial_RB(num_of_antecedents)
 %FRIQ_gen_initial_RB: create the initial "empty" sparse fuzzy rule-base
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     rulebase = zeros(2^num_of_antecedents, num_of_antecedents + 1);

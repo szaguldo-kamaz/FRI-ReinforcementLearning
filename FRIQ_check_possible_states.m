@@ -1,11 +1,11 @@
 function [possiblestate, newrule] = FRIQ_check_possible_states(obs, possiblestate, possiblestate_epsilon)
 %FRIQ_check_possible_states
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     num_of_possiblestates = size(possiblestate, 2);

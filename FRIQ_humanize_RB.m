@@ -1,11 +1,11 @@
 function FRIQ_humanize_RB(RBbasefilename)
 % FRIQ_humanize_RB: convert RB into a human readable form
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
 global FRIQ_param_states FRIQ_param_actions

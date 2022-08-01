@@ -1,11 +1,11 @@
 function [ action ] = FRIQ_epsilon_greedy_selection(state, epsilon, actionset)
 % FRIQ_epsilon_greedy_selection: epsilon-greedy strategy action selection
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     global numofactions

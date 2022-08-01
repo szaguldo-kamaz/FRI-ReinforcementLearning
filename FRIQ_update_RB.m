@@ -1,11 +1,11 @@
 function FRIQ_update_RB(state, action, reward, state_p, action_p, alpha, gamma)
 % FRIQ_update_RB: FRIQ-learning framework: Update the fuzzy rule-base
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     global FRIQ_param_qdiff_pos_boundary FRIQ_param_qdiff_neg_boundary

@@ -1,7 +1,7 @@
 % MountainCar Problem example - Load a previously constructed RB
 % with FRI-based Reinforcement Learning
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>

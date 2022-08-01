@@ -1,11 +1,11 @@
 function FRIQ_check_universes(ident, state, action)
 % FRIQ_check_universes: check boundaries (just for detecting errors)
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     global FRIQ_param_FIVE_UD numofstates Usize

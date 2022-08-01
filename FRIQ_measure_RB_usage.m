@@ -1,6 +1,6 @@
 function FRIQ_measure_RB_usage(RBbasefilename)
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author:
@@ -8,7 +8,7 @@ function FRIQ_measure_RB_usage(RBbasefilename)
 % Author of the FIVE FRI method:
 %  Szilveszter Kovacs <szkovacs@iit.uni-miskolc.hu>
 %
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     %% for accessing user config values defined in the setup file

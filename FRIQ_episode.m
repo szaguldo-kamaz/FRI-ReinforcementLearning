@@ -1,11 +1,11 @@
 function [total_reward_friq, steps_friq] = FRIQ_episode(maxsteps, alpha, gamma, epsilon)
 % FRIQ_episode: FRIQ-learning framework: Evaluate an episode
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     global FRIQ_param_drawfunc FRIQ_param_doactionfunc FRIQ_param_rewardfunc FRIQ_param_quantize_observationsfunc

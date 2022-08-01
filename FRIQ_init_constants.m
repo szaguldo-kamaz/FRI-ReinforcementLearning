@@ -1,11 +1,11 @@
 function FRIQ_init_constants()
 % FRIQ_init_constants: define constants
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 
     %% Define constants - for the names of the strategies

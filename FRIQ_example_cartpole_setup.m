@@ -2,11 +2,11 @@ function FRIQ_example_cartpole_setup()
 % CartPole Problem example
 % with FRI-based Reinforcement Learning
 %
-% FRIQ-learning framework v0.60
+% FRIQ-learning framework v0.70
 % https://github.com/szaguldo-kamaz/
 %
 % Author: David Vincze <david.vincze@uni-miskolc.hu>
-% Copyright (c) 2013-2021 by David Vincze
+% Copyright (c) 2013-2022 by David Vincze
 %
 %
     %% USER DEFINED problem parameters for FRIQ
