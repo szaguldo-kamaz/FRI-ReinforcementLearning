@@ -1,17 +1,13 @@
 function FRIQ_example_mountaincar_setup()
 % MountainCar Problem example
-% with FRI-based Q-learning (using SARSA)
+% with FRI-based Reinforcement Learning
 %
-% http://users.iit.uni-miskolc.hu/~vinczed/friq/
+% FRIQ-learning framework v0.70
+% https://github.com/szaguldo-kamaz/
 %
-% FIVE-based FRIQ-learning extension and framework by:
-%  David Vincze <david.vincze@iit.uni-miskolc.hu>
-% FIVE FRI method developed by:
-%  Szilveszter Kovacs <szkovacs@iit.uni-miskolc.hu>
+% Author: David Vincze <david.vincze@uni-miskolc.hu>
+% Copyright (c) 2013-2022 by David Vincze
 %
-% Original discrete version programmed in MATLAB by:
-%  Jose Antonio Martin H. <jamartinh@fdi.ucm.es>
-% See Sutton & Barto book: Reinforcement Learning p.214
 %
     %% USER DEFINED problem parameters for FRIQ
     global FRIQ_param_appname FRIQ_param_apptitle
